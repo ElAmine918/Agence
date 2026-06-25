@@ -5,6 +5,7 @@ import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Button from "@/components/ui/Button";
 import { Check, CreditCard } from "lucide-react";
+import MagneticButton from "@/components/animations/MagneticButton";
 
 const plans = [
   {
@@ -113,13 +114,15 @@ export default function Pricing() {
                 ))}
               </ul>
 
-              <Button
-                variant={plan.popular ? "primary" : "secondary"}
-                className="w-full"
-                size="lg"
-              >
-                {plan.cta}
-              </Button>
+              <MagneticButton strength={15} className="w-full">
+                <Button
+                  variant={plan.popular ? "primary" : "secondary"}
+                  className="w-full"
+                  size="lg"
+                >
+                  {plan.cta}
+                </Button>
+              </MagneticButton>
             </motion.div>
           ))}
         </div>

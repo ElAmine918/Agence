@@ -50,6 +50,7 @@ export default function MagneticButton({
       onMouseLeave={handleMouseLeave}
       style={{ x: springX, y: springY }}
       className={`relative inline-block ${className}`}
+      data-magnetic="true"
     >
       {children}
     </motion.div>

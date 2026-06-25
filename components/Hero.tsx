@@ -6,18 +6,15 @@ import Button from "@/components/ui/Button";
 import Link from "next/link";
 import BlurReveal from "@/components/animations/BlurReveal";
 import MagneticButton from "@/components/animations/MagneticButton";
+import InteractiveGrid from "@/components/InteractiveGrid";
+import CarPointCloud from "@/components/CarPointCloud";
 
 export default function Hero() {
   return (
     <section className="relative w-full min-h-[100svh] flex flex-col pt-32 pb-24 md:pt-48 bg-[var(--background)] overflow-hidden">
       
-      {/* Dynamic Grid overlay */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 bottom-0 left-[10%] w-[1px] bg-[var(--line)]" />
-        <div className="absolute top-0 bottom-0 right-[10%] w-[1px] bg-[var(--line)]" />
-        <div className="absolute top-[30%] left-0 right-0 h-[1px] bg-[var(--line)]" />
-        <div className="absolute bottom-[20%] left-0 right-0 h-[1px] bg-[var(--line)]" />
-      </div>
+      <CarPointCloud />
+      <InteractiveGrid />
 
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 flex flex-col h-full justify-between flex-grow">
         

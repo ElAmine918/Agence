@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hexagon, Menu, X, ArrowRight } from "lucide-react";
+import MagneticButton from "@/components/animations/MagneticButton";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -63,13 +64,15 @@ export default function Navbar() {
 
           {/* CTA & Mobile Toggle */}
           <div className="flex items-center gap-3 z-50">
-            <Link
-              href="#contact"
-              className="hidden md:flex items-center gap-2 bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-zinc-200 transition-colors group"
-            >
-              Contact
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            <MagneticButton strength={15}>
+              <Link
+                href="#contact"
+                className="hidden md:flex items-center gap-2 bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-zinc-200 transition-colors group"
+              >
+                Contact
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </MagneticButton>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden p-2 text-white hover:bg-[var(--surface2)] rounded-full transition-colors"

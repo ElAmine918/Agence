@@ -5,7 +5,7 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
+  const [hoverState, setHoverState] = useState<"idle" | "magnetic" | "link">("idle");
 
   // Initial cursor position
   const cursorX = useMotionValue(-100);
@@ -23,7 +23,7 @@ export default function CustomCursor() {
     }
 
     const moveCursor = (e: MouseEvent) => {
-      // Subtract half of width (4px) to center the dot
+      // Subtract half of width (6px) to center the dot
       cursorX.set(e.clientX - 6);
       cursorY.set(e.clientY - 6);
       if (!isVisible) setIsVisible(true);
@@ -31,17 +31,24 @@ export default function CustomCursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Check if hovering over interactive elements
-      if (
+      
+      // Check if hovering over a magnetic element specifically
+      if (target.closest('[data-magnetic="true"]')) {
+        setHoverState("magnetic");
+      } 
+      // Check if hovering over normal interactive elements
+      else if (
         target.tagName.toLowerCase() === "a" ||
         target.tagName.toLowerCase() === "button" ||
         target.closest("a") ||
         target.closest("button") ||
         window.getComputedStyle(target).cursor === "pointer"
       ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
+        setHoverState("link");
+      } 
+      // Not hovering anything interactive
+      else {
+        setHoverState("idle");
       }
     };
 
@@ -68,6 +75,18 @@ export default function CustomCursor() {
 
   if (!mounted) return null;
 
+  // Determine scale and opacity based on hover state
+  let scale = 1;
+  let opacity = 1;
+  
+  if (hoverState === "magnetic") {
+    scale = 0;
+    opacity = 0;
+  } else if (hoverState === "link") {
+    scale = 2.5; // Expands slightly
+    opacity = 0.4; // Becomes slightly transparent
+  }
+
   return (
     <motion.div
       className="fixed top-0 left-0 pointer-events-none z-[9999] mix-blend-difference hidden md:block"
@@ -78,16 +97,9 @@ export default function CustomCursor() {
       }}
     >
       <motion.div
-        className="rounded-full bg-white flex items-center justify-center"
-        animate={{
-          width: isHovering ? "48px" : "12px",
-          height: isHovering ? "48px" : "12px",
-          // Adjust position to keep it centered when resizing
-          x: isHovering ? "-18px" : "0px",
-          y: isHovering ? "-18px" : "0px",
-          opacity: isHovering ? 0.3 : 1, // Becomes semi-transparent on hover
-        }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        className="rounded-full bg-white flex items-center justify-center w-[12px] h-[12px]"
+        animate={{ scale, opacity }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       />
     </motion.div>
   );

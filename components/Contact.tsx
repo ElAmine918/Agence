@@ -6,6 +6,7 @@ import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Button from "@/components/ui/Button";
 import { Mail, Loader2, Check } from "lucide-react";
+import MagneticButton from "@/components/animations/MagneticButton";
 
 export default function Contact() {
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
@@ -72,29 +73,31 @@ export default function Contact() {
             </div>
 
             <div className="flex justify-end mt-8">
-              <Button 
-                type="submit"
-                size="lg" 
-                className="w-full sm:w-auto px-12 transition-all relative overflow-hidden"
-                disabled={status !== "idle"}
-              >
-                <span className={`flex items-center gap-2 transition-opacity duration-300 ${status !== "idle" ? "opacity-0" : "opacity-100"}`}>
-                  Envoyer la demande
-                </span>
-                
-                {/* Loading State */}
-                <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${status === "loading" ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                </div>
-
-                {/* Success State */}
-                <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${status === "success" ? "opacity-100 scale-100 bg-green-500 text-white" : "opacity-0 scale-50"}`}>
-                  <span className="flex items-center gap-2 font-medium">
-                    <Check className="w-5 h-5" />
-                    Envoyé !
+              <MagneticButton strength={15}>
+                <Button 
+                  type="submit"
+                  size="lg" 
+                  className="w-full sm:w-auto px-12 transition-all relative overflow-hidden"
+                  disabled={status !== "idle"}
+                >
+                  <span className={`flex items-center gap-2 transition-opacity duration-300 ${status !== "idle" ? "opacity-0" : "opacity-100"}`}>
+                    Envoyer la demande
                   </span>
-                </div>
-              </Button>
+                  
+                  {/* Loading State */}
+                  <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${status === "loading" ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  </div>
+
+                  {/* Success State */}
+                  <div className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ${status === "success" ? "opacity-100 scale-100 bg-green-500 text-white" : "opacity-0 scale-50"}`}>
+                    <span className="flex items-center gap-2 font-medium">
+                      <Check className="w-5 h-5" />
+                      Envoyé !
+                    </span>
+                  </div>
+                </Button>
+              </MagneticButton>
             </div>
           </form>
         </div>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowUp } from "lucide-react";
+import MagneticButton from "@/components/animations/MagneticButton";
 
 const footerLinks = [
   {
@@ -51,19 +52,21 @@ export default function Footer() {
             </p>
           </div>
 
-          <button 
-            onClick={scrollToTop}
-            className="group flex items-center justify-center w-24 h-24 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] transition-all cursor-pointer overflow-hidden relative"
-          >
-            <div className="absolute inset-0 flex flex-col items-center justify-center transform group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-              <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-1">Haut</span>
-              <ArrowUp className="w-4 h-4 text-white" />
-            </div>
-            <div className="absolute inset-0 flex flex-col items-center justify-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-              <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-1">Haut</span>
-              <ArrowUp className="w-4 h-4 text-white" />
-            </div>
-          </button>
+          <MagneticButton strength={20}>
+            <button 
+              onClick={scrollToTop}
+              className="group flex items-center justify-center w-24 h-24 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] transition-all cursor-pointer overflow-hidden relative"
+            >
+              <div className="absolute inset-0 flex flex-col items-center justify-center transform group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-1">Haut</span>
+                <ArrowUp className="w-4 h-4 text-white" />
+              </div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-1">Haut</span>
+                <ArrowUp className="w-4 h-4 text-white" />
+              </div>
+            </button>
+          </MagneticButton>
         </div>
 
         {/* Links Grid */}
