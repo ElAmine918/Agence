@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import SidebarNav from "@/components/SidebarNav";
 
 // Lazy-load below-fold sections to reduce initial bundle size
 const Features = dynamic(() => import("@/components/Features"));
@@ -18,6 +19,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
+      <SidebarNav />
       <main>
         <Hero />
         <Features />

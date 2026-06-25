@@ -88,10 +88,17 @@ export default function Trust() {
 
             {/* Orbiting Satellite Nodes */}
             {icons.map((Icon, i) => {
-              const angle = (i * 2 * Math.PI) / icons.length;
-              const radius = 110;
-              const x = radius * Math.cos(angle);
-              const y = radius * Math.sin(angle);
+              // Pre-computed positions for 6 icons at 60° intervals, radius=110
+              // Avoids Math.cos/sin floating-point SSR hydration mismatch
+              const positions: [number, number][] = [
+                [110, 0],      // 0°
+                [55, 95],      // 60°
+                [-55, 95],     // 120°
+                [-110, 0],     // 180°
+                [-55, -95],    // 240°
+                [55, -95],     // 300°
+              ];
+              const [x, y] = positions[i];
 
               return (
                 <div

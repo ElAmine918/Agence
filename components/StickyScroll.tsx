@@ -58,6 +58,7 @@ export default function StickyScroll() {
   return (
     <section
       ref={containerRef}
+      id="sticky-scroll"
       className="relative h-[300vh] border-t border-zinc-800 bg-[#08080a]"
     >
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
