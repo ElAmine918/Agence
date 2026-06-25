@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Button from "@/components/ui/Button";
@@ -110,9 +111,11 @@ export default function Projects() {
         </div>
 
         <div className="mt-24 sm:mt-32 flex justify-center">
-          <Button size="lg" className="rounded-full px-10 py-5 text-lg">
-            Voir tous les projets
-          </Button>
+          <Link href="/projects">
+            <Button size="lg" className="rounded-full px-10 py-5 text-lg">
+              Voir tous les projets
+            </Button>
+          </Link>
         </div>
       </div>
     </SectionWrapper>
