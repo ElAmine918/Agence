@@ -1,37 +1,31 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import SidebarNav from "@/components/SidebarNav";
 import BottomBlur from "@/components/BottomBlur";
 
 // Lazy-load below-fold sections to reduce initial bundle size
 const Features = dynamic(() => import("@/components/Features"));
-const Trust = dynamic(() => import("@/components/Trust"));
-const StickyScroll = dynamic(() => import("@/components/StickyScroll"));
-const HowItWorks = dynamic(() => import("@/components/HowItWorks"));
+const Projects = dynamic(() => import("@/components/Projects"));
+const Team = dynamic(() => import("@/components/Team"));
 const Pricing = dynamic(() => import("@/components/Pricing"));
 const Testimonials = dynamic(() => import("@/components/Testimonials"));
 const FAQ = dynamic(() => import("@/components/FAQ"));
-const Blog = dynamic(() => import("@/components/Blog"));
-const CTABand = dynamic(() => import("@/components/CTABand"));
+const Contact = dynamic(() => import("@/components/Contact"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <SidebarNav />
       <main>
         <Hero />
         <Features />
-        <Trust />
-        <StickyScroll />
-        <HowItWorks />
+        <Projects />
+        <Team />
         <Pricing />
         <Testimonials />
         <FAQ />
-        <Blog />
-        <CTABand />
+        <Contact />
       </main>
       <BottomBlur />
       <Footer />
