@@ -8,44 +8,43 @@ import { Check, CreditCard } from "lucide-react";
 
 const plans = [
   {
-    name: "Starter",
-    price: "Free",
-    description: "Perfect for testing the waters and small projects.",
+    name: "Lancement",
+    price: "1 200$",
+    description: "Le plancher pour une présence sérieuse. Un site web professionnel qui inspire confiance.",
     features: [
-      "100 tasks / month",
-      "2 AI Agents",
-      "Standard integrations",
-      "Community support",
+      "Design responsive et moderne",
+      "Optimisation de vitesse (Lenis, Next.js)",
+      "Formulaire de contact intégré",
+      "Fondations SEO technique",
     ],
-    cta: "Start for free",
+    cta: "Démarrer",
     popular: false,
   },
   {
-    name: "Pro",
-    price: "$49",
-    description: "For professionals who need more power and custom agents.",
+    name: "Présence",
+    price: "2 800$",
+    description: "Le sweet spot pour un commerce qui veut vraiment s'imposer et dominer son marché.",
     features: [
-      "5,000 tasks / month",
-      "Unlimited AI Agents",
-      "Premium integrations",
-      "Priority email support",
-      "Custom triggers",
+      "Direction artistique sur mesure",
+      "Stratégie de conversion (Copywriting)",
+      "Intégration d'outils (Réservations, etc)",
+      "Formation de prise en main",
+      "Support prioritaire (1 mois)",
     ],
-    cta: "Get Started",
+    cta: "Créer l'Impact",
     popular: true,
   },
   {
-    name: "Enterprise",
-    price: "Custom",
-    description: "Dedicated infrastructure for large-scale automation.",
+    name: "Croissance (SEO)",
+    price: "400$",
+    description: "Retainer mensuel crucial : le SEO local prend 3 à 6 mois pour montrer des résultats mesurables.",
     features: [
-      "Unlimited tasks",
-      "Dedicated infrastructure",
-      "Custom AI models",
-      "24/7 Phone support",
-      "SLA guarantee",
+      "Optimisation SEO local en continu",
+      "Mises à jour de sécurité et maintenance",
+      "Rapport de performance mensuel",
+      "Ajustements de contenu stratégiques",
     ],
-    cta: "Contact Sales",
+    cta: "Assurer la Croissance",
     popular: false,
   },
 ];
@@ -56,10 +55,10 @@ export default function Pricing() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
         <SectionHeader
           icon={CreditCard}
-          label="Pricing"
-          titleNormal="Choose Your"
-          titleItalic="Plans"
-          description="Transparent pricing that scales with your workflows. No hidden fees."
+          label="Nos Tarifs"
+          titleNormal="Des prix alignés sur"
+          titleItalic="la Valeur"
+          description="Des investissements clairs pour des résultats mesurables. Nous construisons des présences web sérieuses."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-center max-w-6xl mx-auto mt-16">
@@ -79,7 +78,7 @@ export default function Pricing() {
               {plan.popular && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
                   <div className="bg-white text-black text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-[var(--line)]">
-                    Popular
+                    Recommandé
                   </div>
                 </div>
               )}
@@ -96,8 +95,8 @@ export default function Pricing() {
                   <span className="text-5xl lg:text-6xl font-sans font-medium tracking-tighter-md text-white">
                     {plan.price}
                   </span>
-                  {plan.price !== "Free" && plan.price !== "Custom" && (
-                    <span className="text-[var(--faint)] font-mono text-sm">/ Month</span>
+                  {plan.name.includes("Croissance") && (
+                    <span className="text-[var(--faint)] font-mono text-sm">/ Mois</span>
                   )}
                 </div>
                 <p className="text-[var(--muted)] text-sm font-medium">
@@ -108,8 +107,8 @@ export default function Pricing() {
               <ul className="flex flex-col gap-4 mb-10 flex-1">
                 {plan.features.map((feature, idx) => (
                   <li key={idx} className="flex items-center gap-3 text-[var(--muted)] text-sm font-medium">
-                    <Check className="w-4 h-4 text-white" />
-                    {feature}
+                    <Check className="w-4 h-4 text-white shrink-0" />
+                    <span>{feature}</span>
                   </li>
                 ))}
               </ul>
