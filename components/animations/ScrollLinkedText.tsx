@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 export default function ScrollLinkedText({
   text,
@@ -10,35 +9,39 @@ export default function ScrollLinkedText({
   text: string;
   className?: string;
 }) {
-  const container = useRef<HTMLParagraphElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: container,
-    offset: ["start 80%", "end 50%"],
-  });
-
   const words = text.split(" ");
 
+  const containerVariants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: { 
+        staggerChildren: 0.04, // Very fast stagger per word
+      },
+    },
+  };
+
+  const wordVariants = {
+    hidden: { opacity: 0.2 },
+    visible: { 
+      opacity: 1, 
+      transition: { duration: 0.3, ease: "easeOut" as const } 
+    },
+  };
+
   return (
-    <p ref={container} className={`flex flex-wrap ${className}`}>
-      {words.map((word, i) => {
-        const start = i / words.length;
-        const end = start + (1 / words.length);
-        return (
-          <Word key={i} progress={scrollYProgress} range={[start, end]}>
-            {word}
-          </Word>
-        );
-      })}
-    </p>
+    <motion.p 
+      variants={containerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-100px" }}
+      className={`flex flex-wrap ${className}`}
+    >
+      {words.map((word, i) => (
+        <span key={i} className="relative mr-2 mt-2">
+          <motion.span variants={wordVariants}>{word}</motion.span>
+        </span>
+      ))}
+    </motion.p>
   );
 }
-
-const Word = ({ children, progress, range }: any) => {
-  const opacity = useTransform(progress, range, [0.2, 1]);
-  return (
-    <span className="relative mr-2 mt-2">
-      <motion.span style={{ opacity }}>{children}</motion.span>
-    </span>
-  );
-};
