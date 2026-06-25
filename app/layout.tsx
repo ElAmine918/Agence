@@ -3,6 +3,7 @@ import { Inter, Geist_Mono, Playfair_Display } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import SmoothScroll from "@/components/SmoothScroll";
 import CustomCursor from "@/components/Cursor";
+import BackgroundGlow from "@/components/BackgroundGlow";
 import "./globals.css";
 
 const inter = Inter({
@@ -47,7 +48,8 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased cursor-none`}
     >
-      <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)] cursor-none">
+      <body className="min-h-full flex flex-col bg-[var(--background)] text-[var(--foreground)] cursor-none relative">
+        <BackgroundGlow />
         <CustomCursor />
         <SmoothScroll>
           {children}
