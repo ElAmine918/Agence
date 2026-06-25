@@ -1,189 +1,123 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import SectionWrapper from "@/components/ui/SectionWrapper";
+import SectionHeader from "@/components/ui/SectionHeader";
 import Button from "@/components/ui/Button";
-import { Check } from "lucide-react";
+import { Check, CreditCard } from "lucide-react";
 
 const plans = [
   {
-    name: "Basic",
-    price: 29,
-    description: "For individuals getting started with automation",
+    name: "Starter",
+    price: "Free",
+    description: "Perfect for testing the waters and small projects.",
     features: [
-      "Up to 5 workflows",
-      "1,000 task runs / month",
-      "Basic integrations",
-      "Email support",
-      "Community access",
+      "100 tasks / month",
+      "2 AI Agents",
+      "Standard integrations",
+      "Community support",
     ],
-    cta: "Start Free Trial",
-    highlighted: false,
-    color: "border-zinc-800 hover:border-zinc-700 bg-zinc-950/40",
+    cta: "Start for free",
+    popular: false,
   },
   {
     name: "Pro",
-    price: 79,
-    description: "For teams that need powerful automation at scale",
+    price: "$49",
+    description: "For professionals who need more power and custom agents.",
     features: [
-      "Unlimited workflows",
-      "25,000 task runs / month",
-      "Advanced integrations",
-      "Priority support",
-      "AI-powered suggestions",
-      "Custom webhooks",
-      "Team collaboration",
+      "5,000 tasks / month",
+      "Unlimited AI Agents",
+      "Premium integrations",
+      "Priority email support",
+      "Custom triggers",
     ],
     cta: "Get Started",
-    highlighted: true,
-    color: "border-cyan-500/80 bg-zinc-950 shadow-[0_0_30px_rgba(6,182,212,0.1)] relative",
+    popular: true,
   },
   {
-    name: "Business",
-    price: 199,
-    description: "For organizations with enterprise-grade needs",
+    name: "Enterprise",
+    price: "Custom",
+    description: "Dedicated infrastructure for large-scale automation.",
     features: [
-      "Everything in Pro",
-      "Unlimited task runs",
-      "Custom integrations",
-      "Dedicated account manager",
-      "SSO & SAML",
-      "Audit logs",
+      "Unlimited tasks",
+      "Dedicated infrastructure",
+      "Custom AI models",
+      "24/7 Phone support",
       "SLA guarantee",
-      "On-premise option",
     ],
     cta: "Contact Sales",
-    highlighted: false,
-    color: "border-zinc-800 hover:border-zinc-700 bg-zinc-950/40",
+    popular: false,
   },
 ];
 
 export default function Pricing() {
-  const [credits, setCredits] = useState(50);
-
   return (
-    <SectionWrapper id="pricing" className="relative overflow-hidden border-t border-zinc-800 bg-[#050507]">
-      {/* Background Grids */}
-      <div className="absolute inset-0 remix-grid opacity-30 z-0 pointer-events-none" />
+    <SectionWrapper id="pricing" className="relative bg-[var(--background)] py-24 md:py-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
+        <SectionHeader
+          icon={CreditCard}
+          label="Pricing"
+          titleNormal="Choose Your"
+          titleItalic="Plans"
+          description="Transparent pricing that scales with your workflows. No hidden fees."
+        />
 
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest"
-          >
-            pricing models
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] mt-3 mb-5 text-white"
-          >
-            Flexible Pricing That <br />
-            <span className="gradient-text-remix font-black">Scales With Your Needs</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-base text-zinc-400 leading-relaxed max-w-xl mx-auto"
-          >
-            Choose a plan that fits your workflow and adjust credits as you grow — no hidden limits, cancel anytime.
-          </motion.p>
-        </div>
-
-        {/* Dynamic Credit Slider */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="flex flex-col items-center mb-16 border border-zinc-800 bg-zinc-950/60 rounded-xl max-w-md mx-auto p-6 relative plus-corner"
-        >
-          <label className="text-xs font-mono text-zinc-400 mb-3 flex items-center justify-between w-full">
-            <span>VOLUME CALCULATOR</span>
-            <span className="text-cyan-400 font-bold">
-              {credits.toLocaleString()}K TASK RUNS / MO
-            </span>
-          </label>
-          <input
-            type="range"
-            min={10}
-            max={200}
-            step={10}
-            value={credits}
-            onChange={(e) => setCredits(Number(e.target.value))}
-            className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
-          />
-          <div className="flex justify-between w-full text-[9px] font-mono text-zinc-600 mt-2">
-            <span>10K RUNS</span>
-            <span>100K RUNS</span>
-            <span>200K RUNS</span>
-          </div>
-        </motion.div>
-
-        {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-center max-w-6xl mx-auto mt-16">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className={`rounded-xl p-8 border flex flex-col transition-all duration-350 ${plan.color}`}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className={`relative flex flex-col p-8 sm:p-10 rounded-[32px] border ${
+                plan.popular
+                  ? "bg-[#1b1b1b] border-[#333333] shadow-2xl shadow-black/50 md:-mt-8 md:mb-8"
+                  : "bg-[#0c0c0c] border-[var(--line)]"
+              }`}
             >
-              {plan.highlighted && (
-                <span className="absolute -top-3.5 left-6 px-3 py-0.5 rounded border border-cyan-800 bg-cyan-950 text-[10px] font-mono font-bold text-cyan-400 z-10 tracking-widest">
-                  RECOMMENDED TIER
-                </span>
+              {plan.popular && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div className="bg-white text-black text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-[var(--line)]">
+                    Popular
+                  </div>
+                </div>
               )}
 
-              {/* Technical Header */}
-              <div className="flex justify-between items-start text-xs font-mono text-zinc-500 mb-4">
-                <span>TIER // 0{i + 1}</span>
-                <span>{plan.name.toUpperCase()}</span>
+              <div className="mb-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 rounded-full border border-[var(--line)] flex items-center justify-center text-[10px] font-mono text-[var(--faint)]">
+                    /0{i + 1}
+                  </div>
+                  <h3 className="text-xl font-medium text-white">{plan.name}</h3>
+                </div>
+                
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-5xl lg:text-6xl font-sans font-medium tracking-tighter-md text-white">
+                    {plan.price}
+                  </span>
+                  {plan.price !== "Free" && plan.price !== "Custom" && (
+                    <span className="text-[var(--faint)] font-mono text-sm">/ Month</span>
+                  )}
+                </div>
+                <p className="text-[var(--muted)] text-sm font-medium">
+                  {plan.description}
+                </p>
               </div>
 
-              <h3 className="text-xl font-bold mb-1 text-white">{plan.name}</h3>
-              <p className="text-xs text-zinc-400 mb-6">{plan.description}</p>
-
-              <div className="mb-6 flex items-baseline">
-                <span className="text-4xl font-extrabold text-white">${plan.price}</span>
-                <span className="text-xs text-zinc-500 font-mono ml-2">/ month</span>
-              </div>
-
-              {/* Divider Line */}
-              <div className="h-px bg-zinc-800/80 mb-6" />
-
-              {/* Features List */}
-              <ul className="flex-1 flex flex-col gap-3.5 mb-8">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-xs leading-relaxed">
-                    <Check
-                      className={`w-4 h-4 shrink-0 ${
-                        plan.highlighted ? "text-cyan-400" : "text-zinc-500"
-                      }`}
-                    />
-                    <span className="text-zinc-300">{feature}</span>
+              <ul className="flex flex-col gap-4 mb-10 flex-1">
+                {plan.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-center gap-3 text-[var(--muted)] text-sm font-medium">
+                    <Check className="w-4 h-4 text-white" />
+                    {feature}
                   </li>
                 ))}
               </ul>
 
-              {/* CTA Button */}
               <Button
-                variant={plan.highlighted ? "primary" : "secondary"}
-                className={`w-full ${
-                  plan.highlighted
-                    ? "bg-cyan-500 hover:bg-cyan-400 text-black border-cyan-500 font-semibold"
-                    : ""
-                }`}
+                variant={plan.popular ? "primary" : "secondary"}
+                className="w-full"
+                size="lg"
               >
                 {plan.cta}
               </Button>

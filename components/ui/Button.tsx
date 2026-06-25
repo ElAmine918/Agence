@@ -1,48 +1,52 @@
 import clsx from "clsx";
 
-type ButtonVariant = "primary" | "secondary" | "ghost";
+type ButtonVariant = "primary" | "secondary" | "ghost" | "popular";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
-  children: React.ReactNode;
   href?: string;
+  className?: string;
 }
 
-const variants: Record<ButtonVariant, string> = {
+const variants = {
+  // Primary is the massive white pill
   primary:
-    "bg-white text-black hover:bg-zinc-200 border border-white hover:border-zinc-200 shadow-[0_2px_10px_rgba(255,255,255,0.05)]",
+    "bg-[#ffffff] text-[#000000] hover:bg-[#cecece] border border-transparent shadow-lg shadow-white/5",
+  // Secondary is the dark surface pill
   secondary:
-    "bg-transparent text-white border border-zinc-800 hover:border-zinc-600 hover:bg-white/[0.04]",
+    "bg-[var(--surface)] text-[var(--foreground)] hover:bg-[var(--surface2)] border border-[var(--line)]",
+  // Ghost is just text
   ghost:
-    "bg-transparent text-zinc-400 hover:text-white hover:bg-zinc-900",
+    "bg-transparent text-[var(--muted)] hover:text-[var(--foreground)]",
+  // Popular is the same as primary for now
+  popular:
+    "bg-[#ffffff] text-[#000000] hover:bg-[#cecece] border border-transparent",
 };
 
-const sizes: Record<ButtonSize, string> = {
+const sizes = {
   sm: "px-4 py-2 text-xs",
-  md: "px-5 py-2.5 text-sm",
-  lg: "px-7 py-3 text-base",
+  md: "px-6 py-3 text-sm",
+  lg: "px-8 py-4 text-base md:text-lg",
 };
 
 export default function Button({
+  children,
   variant = "primary",
   size = "md",
-  children,
-  href,
   className,
+  href,
   ...props
 }: ButtonProps) {
-  const classes = clsx(
-    "inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200 active:scale-[0.98] cursor-pointer",
-    variants[variant],
-    sizes[size],
-    className
-  );
+  const baseClasses =
+    "inline-flex items-center justify-center font-medium rounded-full transition-all duration-300 active:scale-[0.98] cursor-pointer whitespace-nowrap";
+
+  const classes = clsx(baseClasses, variants[variant], sizes[size], className);
 
   if (href) {
     return (
-      <a href={href} className={classes} rel="noopener noreferrer">
+      <a href={href} className={classes}>
         {children}
       </a>
     );

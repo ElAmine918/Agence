@@ -8,79 +8,80 @@ export default function CTABand() {
   return (
     <section
       id="cta"
-      className="relative w-full py-24 sm:py-32 overflow-hidden bg-[#050507] border-t border-zinc-800"
+      className="relative w-full py-24 sm:py-32 overflow-hidden bg-[var(--background)]"
     >
-      {/* Grid background */}
-      <div className="absolute inset-0 remix-grid opacity-20 z-0 pointer-events-none" />
+      {/* Wave pattern background */}
+      <div className="absolute inset-0 wave-pattern opacity-[0.03] z-0 pointer-events-none" />
 
-      {/* Neon glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] h-[400px] sm:h-[600px] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none z-0" />
+      {/* Subtle central glow instead of neon */}
+      <div className="center-glow opacity-50" />
 
-      <div className="relative z-10 max-w-[1200px] mx-auto px-6 sm:px-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
         {/* Two-column glass cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left card — Main CTA */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-zinc-800 bg-zinc-950/70 backdrop-blur-sm p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden group"
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-[32px] border border-[var(--line)] bg-[var(--surface)] p-8 sm:p-12 flex flex-col justify-between relative overflow-hidden group"
           >
             {/* Subtle top gradient accent */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
             <div>
-              <span className="text-[11px] font-mono font-bold text-cyan-400 uppercase tracking-widest mb-4 block">
+              <span className="text-[12px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-6 block">
                 Describe the destination
               </span>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-[-0.02em] leading-[1.15] mb-4">
-                Building with Agence can take you there
+              <h2 className="text-3xl sm:text-4xl font-sans font-medium text-white tracking-tighter-md leading-[1.1] mb-6">
+                Building with Agence <br />
+                <span className="font-serif italic font-light text-[var(--muted)]">takes you there</span>
               </h2>
-              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8">
+              <p className="text-base text-[var(--muted)] leading-relaxed mb-10 font-medium">
                 Agence is currently available as an open beta. Start automating
                 your workflows today with AI-powered agents that learn and
                 adapt to your needs.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start gap-3">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <Button
-                size="md"
-                className="bg-white text-black hover:bg-zinc-200 font-semibold"
+                size="lg"
+                className="w-full sm:w-auto"
               >
                 Get Started Free
               </Button>
               <Button
                 variant="ghost"
-                size="md"
-                className="text-zinc-400 hover:text-white"
+                size="lg"
+                className="w-full sm:w-auto"
               >
-                <ArrowRight className="w-4 h-4" />
                 Watch the demo
+                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </motion.div>
 
           {/* Right card — Newsletter */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-2xl border border-zinc-800 bg-zinc-950/70 backdrop-blur-sm p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden"
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="rounded-[32px] border border-[var(--line)] bg-[var(--surface)] p-8 sm:p-12 flex flex-col justify-between relative overflow-hidden"
           >
             {/* Subtle top gradient accent */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-fuchsia-500/40 to-transparent" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
             <div>
-              <span className="text-[11px] font-mono font-bold text-fuchsia-400 uppercase tracking-widest mb-4 block">
+              <span className="text-[12px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-6 block">
                 Subscribe to our newsletter
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-[-0.02em] leading-[1.15] mb-4">
-                Stay in the loop
+              <h2 className="text-3xl sm:text-4xl font-sans font-medium text-white tracking-tighter-md leading-[1.1] mb-6">
+                Stay in the <span className="font-serif italic font-light text-[var(--muted)]">loop</span>
               </h2>
-              <p className="text-sm sm:text-base text-zinc-400 leading-relaxed mb-8">
+              <p className="text-base text-[var(--muted)] leading-relaxed mb-10 font-medium">
                 Once a month, we write about everything in the world of AI
                 automation. Sign up to be notified on progress. No spam.
                 Unsubscribe anytime.
@@ -95,21 +96,16 @@ export default function CTABand() {
               <input
                 type="email"
                 placeholder="name@example.com"
-                className="flex-1 px-4 py-3 rounded-lg bg-zinc-900/80 border border-zinc-800 text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-600 focus:ring-1 focus:ring-zinc-700 transition-all font-mono"
+                className="flex-1 px-6 py-4 rounded-full bg-[var(--ink)] border border-[var(--line)] text-base text-white placeholder:text-[var(--faint)] focus:outline-none focus:border-[var(--subtle)] transition-all font-sans font-medium"
               />
               <button
                 type="submit"
-                className="px-5 py-3 rounded-lg bg-zinc-800 border border-zinc-700 text-sm font-semibold text-white hover:bg-zinc-700 transition-all cursor-pointer shrink-0 active:scale-[0.98]"
+                className="px-8 py-4 rounded-full bg-white text-black text-base font-medium hover:bg-[#cecece] transition-all cursor-pointer shrink-0 active:scale-[0.98]"
               >
                 Subscribe
               </button>
             </form>
           </motion.div>
-        </div>
-
-        {/* Bottom rainbow separator */}
-        <div className="mt-16">
-          <div className="rainbow-line h-[1px] opacity-30" />
         </div>
       </div>
     </section>

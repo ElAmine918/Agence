@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import { ChevronDown } from "lucide-react";
+import SectionHeader from "@/components/ui/SectionHeader";
+import { ChevronDown, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
@@ -36,54 +37,37 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <SectionWrapper id="faq" className="relative overflow-hidden border-t border-zinc-800 bg-[#050507]">
-      {/* Background Grid */}
-      <div className="absolute inset-0 remix-grid opacity-30 z-0 pointer-events-none" />
+    <SectionWrapper id="faq" className="relative bg-[var(--background)] py-24 md:py-32">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
+        <SectionHeader
+          icon={HelpCircle}
+          label="FAQ Documentation"
+          titleNormal="Everything You Need"
+          titleItalic="Before You Start"
+          description="Have more questions? Reach out to our technical support team — we're always here to help you get automated."
+        />
 
-      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-        {/* Left Side: Sticky Title */}
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="lg:col-span-5 lg:sticky lg:top-28"
-        >
-          <span className="text-xs font-mono font-bold text-fuchsia-400 uppercase tracking-widest">
-            faq documentation
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] mt-3 mb-5 text-white">
-            Everything You Need <br />
-            <span className="gradient-text-remix font-black">Before You Start</span>
-          </h2>
-          <p className="text-base text-zinc-400 leading-relaxed">
-            Have more questions? Reach out to our technical support team — we&apos;re
-            always here to help you get automated.
-          </p>
-        </motion.div>
-
-        {/* Right Side: Accordions */}
-        <div className="lg:col-span-7 flex flex-col border border-zinc-800 rounded-xl bg-zinc-950/40 divide-y divide-zinc-800 overflow-hidden relative plus-corner">
+        <div className="max-w-4xl mx-auto mt-16 flex flex-col border border-[var(--line)] rounded-[32px] bg-[var(--surface)] divide-y divide-[var(--line)] overflow-hidden">
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="transition-colors hover:bg-zinc-900/10"
+              className="transition-colors hover:bg-[var(--surface2)]"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between p-6 text-left cursor-pointer group"
+                className="w-full flex items-center justify-between p-8 text-left cursor-pointer group"
               >
-                <div className="flex items-start gap-4">
-                  <span className="text-[10px] font-mono text-zinc-600 mt-1">
-                    0{i + 1} //
+                <div className="flex items-start gap-6">
+                  <span className="text-[12px] font-mono text-[var(--faint)] mt-1">
+                    /0{i + 1}
                   </span>
-                  <span className="text-sm sm:text-base font-semibold text-zinc-200 group-hover:text-white transition-colors pr-4">
+                  <span className="text-lg sm:text-xl font-medium text-white pr-4 tracking-tight">
                     {faq.q}
                   </span>
                 </div>
-                <div className="p-1 rounded border border-zinc-800 bg-zinc-900/40 text-zinc-500 group-hover:text-white group-hover:border-zinc-600 transition-all shrink-0">
+                <div className="w-10 h-10 rounded-full border border-[var(--line)] bg-[var(--ink)] flex items-center justify-center text-white group-hover:bg-[#333333] transition-all shrink-0">
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-300 ${
+                    className={`w-5 h-5 transition-transform duration-300 ${
                       openIndex === i ? "rotate-180" : ""
                     }`}
                   />
@@ -97,12 +81,12 @@ export default function FAQ() {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{
-                      duration: 0.25,
-                      ease: "easeOut",
+                      duration: 0.3,
+                      ease: [0.16, 1, 0.3, 1],
                     }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 pl-14 text-sm text-zinc-400 leading-relaxed border-t border-zinc-900/50 pt-4 bg-zinc-950/20">
+                    <div className="px-8 pb-8 pl-[68px] text-base text-[var(--muted)] leading-relaxed font-medium">
                       {faq.a}
                     </div>
                   </motion.div>

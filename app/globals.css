@@ -1,37 +1,46 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050507;
-  --foreground: #e4e4e7;
+  /* Strict Greyscale Palette for Agency */
+  --background: #000000;
+  --foreground: #ffffff;
   --heading: #ffffff;
-  --muted: #a1a1aa;
-  --subtle: #52525b;
-  --card-bg: #09090b;
-  --card-border: rgba(255, 255, 255, 0.08);
-  --card-hover-shadow: rgba(56, 189, 248, 0.15);
-  --primary-blue: #3b82f6;
-  --deep-navy: #09090b;
-  --light-blue: #60a5fa;
-  --accent-green: #34d399;
-  --surface: #18181b;
-  --divider: rgba(255, 255, 255, 0.08);
-  --rainbow-gradient: linear-gradient(90deg, #ff4545 0%, #ff8a00 17%, #eab308 33%, #22c55e 50%, #06b6d4 67%, #6366f1 83%, #a855f7 100%);
+  --muted: #cecece;
+  --subtle: #bbbbbb;
+  --faint: #6e6e6e;
+  --dim: #999999;
+  
+  --ink: #0c0c0c;
+  --jet: #0e0e0e;
+  --surface: #1b1b1b;
+  --surface2: #262626;
+  --elevated: #333333;
+  
+  --line: rgba(255, 255, 255, 0.10);
+  --line-hover: rgba(255, 255, 255, 0.20);
+  
+  --card-bg: #1b1b1b;
+  --card-border: rgba(255, 255, 255, 0.10);
+  --divider: rgba(255, 255, 255, 0.10);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-primary: var(--primary-blue);
-  --color-navy: var(--deep-navy);
-  --color-lightblue: var(--light-blue);
-  --color-accent: var(--accent-green);
+  --color-ink: var(--ink);
+  --color-jet: var(--jet);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface2);
+  --color-elevated: var(--elevated);
+  --color-line: var(--line);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-playfair);
 }
 
 /* ── Global Reset ── */
 html {
-  scroll-behavior: smooth;
+  /* Lenis handles smooth scroll, no need for CSS smooth behavior */
   background-color: var(--background);
 }
 
@@ -42,6 +51,33 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Typography & Letter Spacing Utilities ── */
+/* Custom font feature settings for Inter (more geometric 'a', 'g', 'l') */
+.font-sans {
+  font-feature-settings: "cv03" 1, "cv04" 1, "cv09" 1, "cv11" 1;
+}
+
+/* Agency signature gradient text */
+.gradient-text-agency {
+  background: linear-gradient(to right, #ffffff, #999999);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Extreme tight tracking for massive headings */
+.tracking-tighter-xl {
+  letter-spacing: -0.06em;
+}
+
+.tracking-tighter-lg {
+  letter-spacing: -0.04em;
+}
+
+.tracking-tighter-md {
+  letter-spacing: -0.03em;
 }
 
 /* ── Section Spacing ── */
@@ -61,92 +97,31 @@ body {
   }
 }
 
-/* ── Animations ── */
-@keyframes rainbow-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes grid-pulse {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.25; }
-}
-
-@keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
-}
-
-@keyframes text-flow {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
-}
-
-/* ── Remix Design System & Utilities ── */
-
-/* Grid background pattern */
-.remix-grid {
-  background-size: 50px 50px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  mask-image: radial-gradient(ellipse 60% 50% at 50% 50%, black 30%, transparent 95%);
-}
-
-.remix-grid-fine {
+/* ── Textures & Backgrounds ── */
+.dot-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px);
   background-size: 24px 24px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* Animated rainbow line separator */
-.rainbow-line {
-  height: 2px;
-  width: 100%;
-  background: var(--rainbow-gradient);
-  background-size: 200% auto;
-  animation: rainbow-shift 8s linear infinite;
-  box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+.wave-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
-.rainbow-line-vertical {
-  width: 2px;
-  height: 100%;
-  background: var(--rainbow-gradient);
-  background-size: auto 200%;
-  animation: rainbow-shift 8s linear infinite;
-}
-
-/* Rainbow border glow on cards */
-.rainbow-border-hover {
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.rainbow-border-hover::before {
-  content: "";
+/* Central glow for hero */
+.center-glow {
   position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  background: var(--rainbow-gradient);
-  background-size: 200% auto;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.rainbow-border-hover:hover::before {
-  opacity: 0.8;
-  animation: rainbow-shift 4s linear infinite;
-}
-
-.rainbow-border-hover:hover {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
-}
-
-/* Architectural Grid Layout Helpers */
+/* ── Architectural Grid Layout Helpers ── */
 .grid-cell {
   position: relative;
   border: 1px solid var(--divider);
@@ -160,7 +135,7 @@ body {
   position: absolute;
   font-family: monospace;
   font-size: 14px;
-  color: var(--subtle);
+  color: var(--faint);
   line-height: 1;
   pointer-events: none;
   user-select: none;
@@ -172,88 +147,6 @@ body {
 .plus-corner-child::before { bottom: -8px; left: -5px; }
 .plus-corner-child::after { bottom: -8px; right: -5px; }
 
-/* Testimonials Carousel Animation */
-.marquee-container {
-  overflow: hidden;
-  white-space: nowrap;
-  display: flex;
-  width: 100%;
-}
-
-.marquee-content {
-  display: flex;
-  gap: 24px;
-  animation: marquee 40s linear infinite;
-  width: max-content;
-}
-
-.marquee-container:hover .marquee-content {
-  animation-play-state: paused;
-}
-
-/* Remix-style code visual styling */
-.code-window {
-  border-radius: 12px;
-  border: 1px solid var(--divider);
-  background: #0c0c0e;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-}
-
-.code-header {
-  height: 40px;
-  background: #121215;
-  border-bottom: 1px solid var(--divider);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 16px;
-}
-
-.code-dots {
-  display: flex;
-  gap: 6px;
-}
-
-.code-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
-
-/* Custom range slider styling */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-input[type="range"]::-webkit-slider-runnable-track {
-  background: var(--surface);
-  border: 1px solid var(--divider);
-  border-radius: 9999px;
-  height: 8px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  margin-top: -5px; /* Centers thumb on the track */
-  background-color: #ffffff;
-  border: 2px solid var(--primary-blue);
-  border-radius: 50%;
-  height: 18px;
-  width: 18px;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
-  transition: transform 0.1s ease, background-color 0.1s ease;
-}
-
-input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  background-color: var(--primary-blue);
-}
-
 /* Hide scrollbar utility */
 .hide-scrollbar {
   -ms-overflow-style: none;
@@ -261,21 +154,4 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
-}
-
-/* Gradient Text with shifting animation */
-.gradient-text-remix {
-  background: linear-gradient(90deg, #ff4545, #ff8a00, #eab308, #22c55e, #06b6d4, #6366f1, #a855f7);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: rainbow-shift 8s linear infinite;
-}
-
-.gradient-text-blue {
-  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #1d4ed8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }

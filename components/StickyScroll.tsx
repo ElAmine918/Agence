@@ -9,12 +9,7 @@ import {
   Code, 
   GitBranch, 
   Cpu, 
-  Play, 
-  Zap, 
-  Layers, 
-  ArrowRight,
-  Sparkles,
-  CheckCircle
+  Zap
 } from "lucide-react";
 
 const slides = [

@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SidebarNav from "@/components/SidebarNav";
+import BottomBlur from "@/components/BottomBlur";
 
 // Lazy-load below-fold sections to reduce initial bundle size
 const Features = dynamic(() => import("@/components/Features"));
@@ -32,6 +33,7 @@ export default function Home() {
         <Blog />
         <CTABand />
       </main>
+      <BottomBlur />
       <Footer />
     </>
   );
