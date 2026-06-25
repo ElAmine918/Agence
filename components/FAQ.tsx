@@ -8,28 +8,24 @@ import { ChevronDown, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
-    q: "How does the AI automation work?",
-    a: "Our AI engine analyzes your workflow patterns, identifies repetitive tasks, and builds optimized automation pipelines. You define the triggers and actions; the AI handles the logic, error recovery, and scaling.",
+    q: "Qu'est-ce qu'un Réceptionniste IA ?",
+    a: "C'est un agent vocal virtuel doté d'intelligence artificielle qui répond au téléphone de votre commerce 24h/24 et 7j/7. Il comprend le langage naturel, peut prendre des réservations, répondre aux questions fréquentes (horaires, menu, stationnement) et converser comme un humain.",
   },
   {
-    q: "Do I need coding experience to use the platform?",
-    a: "Not at all. Our visual workflow builder lets you drag and drop actions, set conditions, and connect apps without writing a single line of code. Power users can also use our API for custom integrations.",
+    q: "Combien de temps faut-il pour créer le site ?",
+    a: "En général, entre 2 à 4 semaines. Nous fonctionnons par itérations rapides. Une fois le design approuvé, le développement est très rapide grâce à nos processus internes optimisés.",
   },
   {
-    q: "Can I integrate with my existing tools?",
-    a: "Yes! We support 200+ integrations out of the box, including Slack, Google Workspace, Salesforce, HubSpot, GitHub, Jira, and more. Custom webhooks and API endpoints are available on Pro and above.",
+    q: "Dois-je m'engager sur un retainer SEO mensuel ?",
+    a: "Ce n'est pas obligatoire, mais fortement recommandé. Le SEO local (être premier sur Google Maps et dans les recherches locales) prend du temps et demande une maintenance continue. Le retainer garantit que votre site reste performant et que votre trafic augmente mois après mois.",
   },
   {
-    q: "What happens if I exceed my monthly task runs?",
-    a: "We'll notify you when you reach 80% of your limit. You can purchase additional credits anytime, or upgrade your plan. We never stop your workflows without warning.",
+    q: "L'IA peut-elle s'intégrer à mon système de réservation actuel ?",
+    a: "Oui. Nos agents vocaux peuvent se connecter via API à la plupart des systèmes modernes (OpenTable, Libro, Calendly, etc.) pour vérifier les disponibilités et insérer les réservations en temps réel.",
   },
   {
-    q: "Is my data secure?",
-    a: "Absolutely. We're SOC 2 Type II certified, use end-to-end encryption, and offer role-based access control. Enterprise customers also get SSO, audit logs, and on-premise deployment options.",
-  },
-  {
-    q: "Can I try it before committing?",
-    a: "Yes, we offer a 14-day free trial on all plans with no credit card required. You also get access to our community plan forever with limited features.",
+    q: "Hébergement et nom de domaine, comment ça marche ?",
+    a: "Nous nous occupons de tout. Nous hébergeons le site sur des serveurs ultra-rapides (Vercel) pour garantir une vitesse de chargement instantanée, ce qui est crucial pour le SEO et l'expérience mobile de vos clients.",
   },
 ];
 
@@ -41,10 +37,10 @@ export default function FAQ() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
         <SectionHeader
           icon={HelpCircle}
-          label="FAQ Documentation"
-          titleNormal="Everything You Need"
-          titleItalic="Before You Start"
-          description="Have more questions? Reach out to our technical support team — we're always here to help you get automated."
+          label="FAQ"
+          titleNormal="Questions"
+          titleItalic="Fréquentes"
+          description="Tout ce que vous devez savoir sur nos sites web et nos réceptionnistes IA avant de vous lancer."
         />
 
         <div className="max-w-4xl mx-auto mt-16 flex flex-col border border-[var(--line)] rounded-[32px] bg-[var(--surface)] divide-y divide-[var(--line)] overflow-hidden">

@@ -8,30 +8,30 @@ import { FolderGit2 } from "lucide-react";
 
 const projects = [
   {
-    titleNormal: "Nova",
-    titleItalic: "Protocol",
-    client: "DeFi Platform",
+    titleNormal: "Maison",
+    titleItalic: "St-Paul",
+    client: "Restaurant Gastronomique",
     year: "2026",
-    awards: ["Awwwards SOTD", "FWA"],
-    tags: ["Strategy", "Web3", "Frontend"],
+    awards: ["Montréal"],
+    tags: ["Web Design", "Agent IA Vocal"],
     imageGradient: "from-[var(--ink)] to-black",
   },
   {
-    titleNormal: "Echo",
-    titleItalic: "Systems",
-    client: "AI Analytics",
+    titleNormal: "Café",
+    titleItalic: "Mont-Royal",
+    client: "Brûlerie Locale",
     year: "2025",
-    awards: ["Behance Featured"],
-    tags: ["UX/UI", "Dashboard", "React"],
+    awards: ["Le Plateau"],
+    tags: ["E-Commerce", "SEO Local"],
     imageGradient: "from-[#1b1b1b] to-black",
   },
   {
-    titleNormal: "Aura",
-    titleItalic: "Health",
-    client: "MedTech Startup",
+    titleNormal: "Clinique",
+    titleItalic: "Esthétique",
+    client: "MedSpa",
     year: "2025",
-    awards: ["CSS Design Awards"],
-    tags: ["Mobile App", "Brand", "Design System"],
+    awards: ["Laval"],
+    tags: ["Système de Réservation", "SEO"],
     imageGradient: "from-[#0c0c0c] to-black",
   },
 ];
@@ -42,10 +42,10 @@ export default function Projects() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
         <SectionHeader
           icon={FolderGit2}
-          label="Selected Works"
-          titleNormal="Our Featured"
-          titleItalic="Projects"
-          description="A selection of recent projects where we turned complex ideas into elegant, impactful digital experiences."
+          label="Nos Réalisations"
+          titleNormal="Projets"
+          titleItalic="Récents"
+          description="Une sélection de commerces locaux que nous avons aidés à dominer leur marché grâce au digital et à l'IA."
         />
 
         <div className="flex flex-col gap-12 sm:gap-24 mt-16 sm:mt-24">
@@ -77,7 +77,7 @@ export default function Projects() {
                 
                 {/* View Project button on hover */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-500 ease-out z-20">
-                  <span className="text-white font-medium text-sm">View Case</span>
+                  <span className="text-white font-medium text-sm">Voir l'étude</span>
                 </div>
               </div>
 
@@ -111,7 +111,7 @@ export default function Projects() {
 
         <div className="mt-24 sm:mt-32 flex justify-center">
           <Button size="lg" className="rounded-full px-10 py-5 text-lg">
-            View All Projects
+            Voir tous les projets
           </Button>
         </div>
       </div>

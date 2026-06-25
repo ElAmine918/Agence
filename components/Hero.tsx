@@ -42,13 +42,13 @@ export default function Hero() {
             className="flex flex-col items-end text-right max-w-[320px]"
           >
             <p className="text-[14px] text-[var(--muted)] leading-relaxed mb-6 font-medium">
-              We build brands and digital experiences for the world's most innovative companies.
+              Nous concevons des présences digitales premium et déployons des réceptionnistes IA pour les commerces montréalais.
             </p>
             <a href="#contact" className="text-white text-sm font-semibold mb-6 border-b border-[var(--line)] pb-1 hover:text-[var(--muted)] transition-colors">
-              Contact Us
+              Contactez-nous
             </a>
             <div className="flex items-center gap-3">
-              {["IG", "X", "IN"].map((label, i) => (
+              {["IG", "IN"].map((label, i) => (
                 <a key={i} href="#" className="w-10 h-10 rounded-full border border-[var(--line)] bg-transparent flex items-center justify-center hover:bg-white hover:text-black transition-colors group">
                   <span className="text-[10px] font-mono font-medium text-white group-hover:text-black transition-colors">{label}</span>
                 </a>
@@ -68,9 +68,9 @@ export default function Hero() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="text-[80px] sm:text-[100px] lg:text-[140px] font-sans font-normal text-white tracking-tighter-xl leading-[0.92] max-w-4xl m-0 p-0"
             >
-              Create, <br />
-              <span className="font-serif italic font-light text-[var(--muted)] tracking-tighter-lg">Impactful</span> <br />
-              <span className="gradient-text-agency">Automations</span>
+              Digital, <br />
+              <span className="font-serif italic font-light text-[var(--muted)] tracking-tighter-lg">Élégant</span> <br />
+              <span className="gradient-text-agency">& Automatisé</span>
             </motion.h1>
 
             <motion.div
@@ -79,9 +79,9 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="flex flex-col gap-2"
             >
-              <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest">We do</span>
+              <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest">Expertises</span>
               <p className="text-[14px] font-sans font-medium text-[var(--muted)] tracking-tight">
-                / Strategy / Design / Engineering / AI
+                / Web Design / SEO Local / Réceptionnistes IA
               </p>
             </motion.div>
           </div>
@@ -95,13 +95,13 @@ export default function Hero() {
           >
             <div className="flex items-center gap-2 text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest">
               <span>Featured</span>
-              <span className="text-white">(02)</span>
+              <span className="text-white">(01)</span>
             </div>
             <div className="w-[200px] h-[120px] rounded-2xl bg-[var(--surface)] border border-[var(--line)] overflow-hidden relative group cursor-pointer">
               <div className="absolute inset-0 wave-pattern opacity-[0.05]" />
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)] to-transparent" />
-              <span className="absolute bottom-3 left-3 text-white text-xs font-medium group-hover:text-cyan-400 transition-colors">
-                Nova Protocol
+              <span className="absolute bottom-3 left-3 text-white text-xs font-medium group-hover:text-white/80 transition-colors">
+                Maison St-Paul
               </span>
             </div>
           </motion.div>

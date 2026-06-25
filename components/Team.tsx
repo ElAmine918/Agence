@@ -6,10 +6,10 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import { Users } from "lucide-react";
 
 const team = [
-  { name: "Julian Reyes", role: "Creative Director" },
-  { name: "Sophia Chen", role: "Lead Engineer" },
-  { name: "Marcus Webb", role: "Head of Strategy" },
-  { name: "Elena K.", role: "Motion Designer" },
+  { name: "Proximité Locale", role: "On comprend Montréal" },
+  { name: "Approche ROI", role: "Axé sur les résultats" },
+  { name: "Technologie IA", role: "Un temps d'avance" },
+  { name: "Support Premium", role: "Retainer & Maintenance" },
 ];
 
 export default function Team() {
@@ -18,10 +18,10 @@ export default function Team() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
         <SectionHeader
           icon={Users}
-          label="Our People"
-          titleNormal="The Creative"
-          titleItalic="Engine"
-          description="A tight-knit collective of designers, engineers, and strategists pushing the boundaries of digital experiences."
+          label="L'Avantage"
+          titleNormal="Pourquoi"
+          titleItalic="Nous ?"
+          description="Contrairement aux agences traditionnelles, nous ne vendons pas juste du code. Nous vendons de la croissance et du temps gagné."
         />
 
         <div className="mt-16 sm:mt-24 relative overflow-hidden rounded-[40px] sm:rounded-b-[56px] border border-[var(--line)] bg-[var(--ink)]">
@@ -32,11 +32,11 @@ export default function Team() {
           <div className="relative z-10 p-8 sm:p-16 lg:p-24 grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
             <div className="flex flex-col justify-end">
               <h3 className="text-3xl sm:text-4xl font-sans text-white tracking-tighter-md mb-6">
-                Small teams, <br />
-                <span className="font-serif italic font-light text-[var(--muted)]">massive impact.</span>
+                Des solutions locales, <br />
+                <span className="font-serif italic font-light text-[var(--muted)]">un impact massif.</span>
               </h3>
               <p className="text-base text-[var(--muted)] leading-relaxed font-medium max-w-md">
-                We believe in zero bloat. By keeping our teams lean and senior-heavy, we move faster, communicate better, and deliver exceptional quality without the agency overhead.
+                Un restaurant ou un commerce montréalais n'a pas besoin des mêmes outils qu'une multinationale. Vous avez besoin d'être trouvé facilement, de donner envie, et de ne jamais rater un appel client. C'est exactement ce que nous bâtissons.
               </p>
             </div>
 

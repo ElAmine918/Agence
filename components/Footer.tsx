@@ -5,29 +5,29 @@ import { ArrowUp } from "lucide-react";
 
 const footerLinks = [
   {
-    heading: "Agency",
+    heading: "Studio M",
     links: [
-      { label: "Work", href: "#projects" },
+      { label: "Réalisations", href: "#projects" },
       { label: "Services", href: "#services" },
-      { label: "Team", href: "#team" },
-      { label: "Pricing", href: "#pricing" },
+      { label: "Pourquoi Nous", href: "#team" },
+      { label: "Tarifs", href: "#pricing" },
     ],
   },
   {
-    heading: "Connect",
+    heading: "Contact",
     links: [
-      { label: "Contact", href: "#contact" },
-      { label: "Careers", href: "#" },
+      { label: "Démarrer un projet", href: "#contact" },
+      { label: "Carrières", href: "#" },
       { label: "Instagram", href: "#" },
       { label: "LinkedIn", href: "#" },
     ],
   },
   {
-    heading: "Legal",
+    heading: "Légal",
     links: [
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-      { label: "Cookie Policy", href: "#" },
+      { label: "Politique de confidentialité", href: "#" },
+      { label: "Conditions d'utilisation", href: "#" },
+      { label: "Mentions Légales", href: "#" },
     ],
   },
 ];
@@ -45,10 +45,10 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-12 mb-24">
           <div className="flex flex-col items-start gap-6">
             <Link href="/" className="text-4xl sm:text-5xl md:text-7xl font-sans font-medium text-white tracking-tighter-md leading-none hover:opacity-80 transition-opacity">
-              Agence <span className="font-serif italic font-light text-[var(--muted)]">©</span>
+              Studio M <span className="font-serif italic font-light text-[var(--muted)]">©</span>
             </Link>
             <p className="text-base text-[var(--muted)] font-medium max-w-sm">
-              We turn visionary ideas into highly engineered digital realities.
+              Nous transformons des idées visionnaires en présences digitales hautement performantes.
             </p>
           </div>
 
@@ -57,11 +57,11 @@ export default function Footer() {
             className="group flex items-center justify-center w-24 h-24 rounded-full border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] transition-all cursor-pointer overflow-hidden relative"
           >
             <div className="absolute inset-0 flex flex-col items-center justify-center transform group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-              <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-1">Top</span>
+              <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-1">Haut</span>
               <ArrowUp className="w-4 h-4 text-white" />
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-              <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-1">Top</span>
+              <span className="text-[10px] font-mono font-medium text-[var(--faint)] uppercase tracking-widest mb-1">Haut</span>
               <ArrowUp className="w-4 h-4 text-white" />
             </div>
           </button>
@@ -94,12 +94,12 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-[var(--line)] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-[11px] font-mono text-[var(--faint)] uppercase tracking-widest">
-            © {new Date().getFullYear()} AGENCE LABS INC.
+            © {new Date().getFullYear()} STUDIO M INC.
           </p>
           <div className="flex items-center gap-4 text-[11px] font-mono text-[var(--faint)] uppercase tracking-widest">
-            <span>Built in Paris</span>
+            <span>Fait à Montréal</span>
             <span>·</span>
-            <span>All Rights Reserved</span>
+            <span>Tous Droits Réservés</span>
           </div>
         </div>
       </div>
