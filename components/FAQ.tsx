@@ -36,66 +36,79 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <SectionWrapper id="faq">
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-16">
+    <SectionWrapper id="faq" className="relative overflow-hidden border-t border-zinc-800 bg-[#050507]">
+      {/* Background Grid */}
+      <div className="absolute inset-0 remix-grid opacity-30 z-0 pointer-events-none" />
+
+      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        {/* Left Side: Sticky Title */}
         <motion.div
-          initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
+          className="lg:col-span-5 lg:sticky lg:top-28"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-[-0.02em] leading-[1.12] mb-5 text-[var(--heading)]">
-            Everything You Need to Know{" "}
-            <span className="gradient-text">Before You Start</span>
+          <span className="text-xs font-mono font-bold text-fuchsia-400 uppercase tracking-widest">
+            faq documentation
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] mt-3 mb-5 text-white">
+            Everything You Need <br />
+            <span className="gradient-text-remix font-black">Before You Start</span>
           </h2>
-          <p className="text-base text-[var(--muted)] leading-relaxed">
-            Have more questions? Reach out to our support team — we&apos;re
-            always happy to help.
+          <p className="text-base text-zinc-400 leading-relaxed">
+            Have more questions? Reach out to our technical support team — we&apos;re
+            always here to help you get automated.
           </p>
         </motion.div>
 
-        <div className="flex flex-col">
+        {/* Right Side: Accordions */}
+        <div className="lg:col-span-7 flex flex-col border border-zinc-800 rounded-xl bg-zinc-950/40 divide-y divide-zinc-800 overflow-hidden relative plus-corner">
           {faqs.map((faq, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.3, delay: i * 0.05 }}
-              className="border-b border-[var(--divider)]"
+              className="transition-colors hover:bg-zinc-900/10"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between py-5 text-left cursor-pointer group"
+                className="w-full flex items-center justify-between p-6 text-left cursor-pointer group"
               >
-                <span className="text-sm sm:text-base font-semibold text-[var(--heading)] group-hover:text-[var(--primary-blue)] transition-colors pr-4">
-                  {faq.q}
-                </span>
-                <ChevronDown
-                  className={`w-5 h-5 text-[var(--subtle)] shrink-0 transition-transform duration-300 ${
-                    openIndex === i ? "rotate-180" : ""
-                  }`}
-                />
+                <div className="flex items-start gap-4">
+                  <span className="text-[10px] font-mono text-zinc-600 mt-1">
+                    0{i + 1} //
+                  </span>
+                  <span className="text-sm sm:text-base font-semibold text-zinc-200 group-hover:text-white transition-colors pr-4">
+                    {faq.q}
+                  </span>
+                </div>
+                <div className="p-1 rounded border border-zinc-800 bg-zinc-900/40 text-zinc-500 group-hover:text-white group-hover:border-zinc-600 transition-all shrink-0">
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-300 ${
+                      openIndex === i ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
               </button>
-              <AnimatePresence>
+              
+              <AnimatePresence initial={false}>
                 {openIndex === i && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{
-                      duration: 0.3,
+                      duration: 0.25,
                       ease: "easeOut",
                     }}
                     className="overflow-hidden"
                   >
-                    <p className="text-sm text-[var(--muted)] leading-relaxed pb-5">
+                    <div className="px-6 pb-6 pl-14 text-sm text-zinc-400 leading-relaxed border-t border-zinc-900/50 pt-4 bg-zinc-950/20">
                       {faq.a}
-                    </p>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

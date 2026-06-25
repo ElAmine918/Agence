@@ -20,6 +20,7 @@ const plans = [
     ],
     cta: "Start Free Trial",
     highlighted: false,
+    color: "border-zinc-800 hover:border-zinc-700 bg-zinc-950/40",
   },
   {
     name: "Pro",
@@ -36,6 +37,7 @@ const plans = [
     ],
     cta: "Get Started",
     highlighted: true,
+    color: "border-cyan-500/80 bg-zinc-950 shadow-[0_0_30px_rgba(6,182,212,0.1)] relative",
   },
   {
     name: "Business",
@@ -53,6 +55,7 @@ const plans = [
     ],
     cta: "Contact Sales",
     highlighted: false,
+    color: "border-zinc-800 hover:border-zinc-700 bg-zinc-950/40",
   },
 ];
 
@@ -60,140 +63,133 @@ export default function Pricing() {
   const [credits, setCredits] = useState(50);
 
   return (
-    <SectionWrapper id="pricing">
-      <div className="text-center mb-16">
-        <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-[-0.02em] leading-[1.12] mb-5 text-[var(--heading)]"
-        >
-          Flexible Pricing That{" "}
-          <span className="gradient-text">Scales With Your Needs</span>
-        </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-base sm:text-lg text-[var(--muted)] leading-relaxed max-w-xl mx-auto"
-        >
-          Choose a plan that fits your workflow and adjust credits as you grow —
-          no limits, no surprises.
-        </motion.p>
-      </div>
+    <SectionWrapper id="pricing" className="relative overflow-hidden border-t border-zinc-800 bg-[#050507]">
+      {/* Background Grids */}
+      <div className="absolute inset-0 remix-grid opacity-30 z-0 pointer-events-none" />
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        className="flex flex-col items-center mb-14"
-      >
-        <label className="text-sm font-medium text-[var(--muted)] mb-3">
-          Monthly credits:{" "}
-          <span className="text-[var(--primary-blue)] font-bold">
-            {credits.toLocaleString()}k
-          </span>
-        </label>
-        <input
-          type="range"
-          min={10}
-          max={200}
-          step={10}
-          value={credits}
-          onChange={(e) => setCredits(Number(e.target.value))}
-          className="w-full max-w-xs h-1.5 rounded-full appearance-none cursor-pointer bg-[var(--surface)] accent-[var(--primary-blue)]"
-        />
-      </motion.div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-        {plans.map((plan, i) => (
-          <motion.div
-            key={plan.name}
-            initial={{ opacity: 0, y: 32 }}
+      <div className="relative z-10 max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className={`relative rounded-2xl p-8 flex flex-col ${
-              plan.highlighted
-                ? "bg-[var(--deep-navy)] text-white border-2 border-transparent shimmer-border shadow-[0_8px_40px_rgba(0,80,248,0.15)] scale-[1.02]"
-                : "bg-[var(--card-bg)] border border-[var(--card-border)] glow-border"
-            }`}
+            viewport={{ once: true }}
+            className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-widest"
           >
-            {plan.highlighted && (
-              <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-[var(--primary-blue)] text-white text-xs font-semibold z-10">
-                Most Popular
-              </span>
-            )}
-            <h3
-              className={`text-xl font-bold mb-1 ${
-                plan.highlighted ? "text-white" : "text-[var(--heading)]"
-              }`}
-            >
-              {plan.name}
-            </h3>
-            <p
-              className={`text-sm mb-6 ${
-                plan.highlighted ? "text-white/60" : "text-[var(--muted)]"
-              }`}
-            >
-              {plan.description}
-            </p>
+            pricing models
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-[-0.03em] leading-[1.1] mt-3 mb-5 text-white"
+          >
+            Flexible Pricing That <br />
+            <span className="gradient-text-remix font-black">Scales With Your Needs</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-base text-zinc-400 leading-relaxed max-w-xl mx-auto"
+          >
+            Choose a plan that fits your workflow and adjust credits as you grow — no hidden limits, cancel anytime.
+          </motion.p>
+        </div>
 
-            <div className="mb-6">
-              <span
-                className={`text-4xl font-bold ${
-                  plan.highlighted ? "text-white" : "text-[var(--heading)]"
+        {/* Dynamic Credit Slider */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="flex flex-col items-center mb-16 border border-zinc-800 bg-zinc-950/60 rounded-xl max-w-md mx-auto p-6 relative plus-corner"
+        >
+          <label className="text-xs font-mono text-zinc-400 mb-3 flex items-center justify-between w-full">
+            <span>VOLUME CALCULATOR</span>
+            <span className="text-cyan-400 font-bold">
+              {credits.toLocaleString()}K TASK RUNS / MO
+            </span>
+          </label>
+          <input
+            type="range"
+            min={10}
+            max={200}
+            step={10}
+            value={credits}
+            onChange={(e) => setCredits(Number(e.target.value))}
+            className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
+          />
+          <div className="flex justify-between w-full text-[9px] font-mono text-zinc-600 mt-2">
+            <span>10K RUNS</span>
+            <span>100K RUNS</span>
+            <span>200K RUNS</span>
+          </div>
+        </motion.div>
+
+        {/* Pricing Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+          {plans.map((plan, i) => (
+            <motion.div
+              key={plan.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className={`rounded-xl p-8 border flex flex-col transition-all duration-350 ${plan.color}`}
+            >
+              {plan.highlighted && (
+                <span className="absolute -top-3.5 left-6 px-3 py-0.5 rounded border border-cyan-800 bg-cyan-950 text-[10px] font-mono font-bold text-cyan-400 z-10 tracking-widest">
+                  RECOMMENDED TIER
+                </span>
+              )}
+
+              {/* Technical Header */}
+              <div className="flex justify-between items-start text-xs font-mono text-zinc-500 mb-4">
+                <span>TIER // 0{i + 1}</span>
+                <span>{plan.name.toUpperCase()}</span>
+              </div>
+
+              <h3 className="text-xl font-bold mb-1 text-white">{plan.name}</h3>
+              <p className="text-xs text-zinc-400 mb-6">{plan.description}</p>
+
+              <div className="mb-6 flex items-baseline">
+                <span className="text-4xl font-extrabold text-white">${plan.price}</span>
+                <span className="text-xs text-zinc-500 font-mono ml-2">/ month</span>
+              </div>
+
+              {/* Divider Line */}
+              <div className="h-px bg-zinc-800/80 mb-6" />
+
+              {/* Features List */}
+              <ul className="flex-1 flex flex-col gap-3.5 mb-8">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-3 text-xs leading-relaxed">
+                    <Check
+                      className={`w-4 h-4 shrink-0 ${
+                        plan.highlighted ? "text-cyan-400" : "text-zinc-500"
+                      }`}
+                    />
+                    <span className="text-zinc-300">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA Button */}
+              <Button
+                variant={plan.highlighted ? "primary" : "secondary"}
+                className={`w-full ${
+                  plan.highlighted
+                    ? "bg-cyan-500 hover:bg-cyan-400 text-black border-cyan-500 font-semibold"
+                    : ""
                 }`}
               >
-                ${plan.price}
-              </span>
-              <span
-                className={`text-sm ${
-                  plan.highlighted ? "text-white/50" : "text-[var(--subtle)]"
-                }`}
-              >
-                /month
-              </span>
-            </div>
-
-            <ul className="flex-1 flex flex-col gap-3 mb-8">
-              {plan.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-2.5 text-sm">
-                  <Check
-                    className={`w-4 h-4 mt-0.5 shrink-0 ${
-                      plan.highlighted
-                        ? "text-[var(--light-blue)]"
-                        : "text-[var(--primary-blue)]"
-                    }`}
-                  />
-                  <span
-                    className={
-                      plan.highlighted
-                        ? "text-white/80"
-                        : "text-[var(--muted)]"
-                    }
-                  >
-                    {feature}
-                  </span>
-                </li>
-              ))}
-            </ul>
-
-            <Button
-              variant={plan.highlighted ? "primary" : "secondary"}
-              className={`w-full ${
-                plan.highlighted
-                  ? "bg-white text-[var(--deep-navy)] hover:bg-white/90 shadow-none"
-                  : ""
-              }`}
-            >
-              {plan.cta}
-            </Button>
-          </motion.div>
-        ))}
+                {plan.cta}
+              </Button>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </SectionWrapper>
   );
