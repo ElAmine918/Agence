@@ -7,7 +7,6 @@ const footerLinks = [
   {
     heading: "Studio M",
     links: [
-      { label: "Réalisations", href: "#projects" },
       { label: "Services", href: "#services" },
       { label: "Pourquoi Nous", href: "#team" },
       { label: "Tarifs", href: "#pricing" },

@@ -8,6 +8,8 @@ import {
   Bot,
   TrendingUp,
 } from "lucide-react";
+import BlurReveal from "@/components/animations/BlurReveal";
+import ScaleDownParallax from "@/components/animations/ScaleDownParallax";
 
 const features = [
   {
@@ -53,49 +55,53 @@ export default function Features() {
       <div className="absolute inset-0 wave-pattern opacity-[0.02] z-0 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <SectionHeader
-          icon={Globe}
-          label="Nos Services"
-          titleNormal="L'écosystème"
-          titleItalic="Complet"
-          titleEnd=""
-          description="De l'acquisition en ligne à la prise d'appel automatisée, nous gérons votre présence de A à Z."
-        />
+        <BlurReveal>
+          <SectionHeader
+            icon={Globe}
+            label="Nos Services"
+            titleNormal="L'écosystème"
+            titleItalic="Complet"
+            titleEnd=""
+            description="De l'acquisition en ligne à la prise d'appel automatisée, nous gérons votre présence de A à Z."
+          />
+        </BlurReveal>
 
         {/* 3-Column Luxury Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 md:px-0 mt-16"
-        >
-          {features.map((feature, i) => (
-            <motion.div
-              key={feature.title}
-              variants={cardVariants}
-              className="group p-8 sm:p-12 rounded-[32px] border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] transition-all duration-500 relative flex flex-col h-full overflow-hidden"
-            >
-              {/* Top Accent Icon */}
-              <div className="mb-10 w-14 h-14 rounded-full border border-[var(--line)] bg-[var(--ink)] flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                <feature.icon className="w-6 h-6 text-[var(--foreground)]" />
-              </div>
-              
-              <div className="flex-1">
-                <div className="text-[12px] font-mono text-[var(--faint)] mb-4">/0{i + 1}</div>
-                <h3 className="text-2xl font-sans font-medium tracking-tight mb-4 text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-base text-[var(--muted)] leading-relaxed font-medium">
-                  {feature.description}
-                </p>
-              </div>
+        <ScaleDownParallax>
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 md:px-0 mt-16"
+          >
+            {features.map((feature, i) => (
+              <motion.div
+                key={feature.title}
+                variants={cardVariants}
+                className="group p-8 sm:p-12 rounded-[32px] border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] transition-all duration-500 relative flex flex-col h-full overflow-hidden"
+              >
+                {/* Top Accent Icon */}
+                <div className="mb-10 w-14 h-14 rounded-full border border-[var(--line)] bg-[var(--ink)] flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                  <feature.icon className="w-6 h-6 text-[var(--foreground)]" />
+                </div>
+                
+                <div className="flex-1">
+                  <div className="text-[12px] font-mono text-[var(--faint)] mb-4">/0{i + 1}</div>
+                  <h3 className="text-2xl font-sans font-medium tracking-tight mb-4 text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-base text-[var(--muted)] leading-relaxed font-medium">
+                    {feature.description}
+                  </p>
+                </div>
 
-              {/* Bottom line accent on hover */}
-              <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
-            </motion.div>
-          ))}
-        </motion.div>
+                {/* Bottom line accent on hover */}
+                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white to-transparent opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
+              </motion.div>
+            ))}
+          </motion.div>
+        </ScaleDownParallax>
       </div>
     </SectionWrapper>
   );

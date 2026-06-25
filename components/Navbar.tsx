@@ -7,7 +7,6 @@ import { Hexagon, Menu, X, ArrowRight } from "lucide-react";
 
 const navLinks = [
   { label: "Services", href: "#services" },
-  { label: "Réalisations", href: "#projects" },
   { label: "Pourquoi Nous", href: "#team" },
   { label: "Tarifs", href: "#pricing" },
 ];
