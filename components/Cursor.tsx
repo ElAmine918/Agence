@@ -61,8 +61,12 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY, isVisible]);
 
-  // Don't render anything on SSR
-  if (typeof window === "undefined") return null;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <motion.div
