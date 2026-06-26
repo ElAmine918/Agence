@@ -67,8 +67,8 @@ const PointCloudMaterial = {
       vec4 mvPosition = viewMatrix * worldPos;
       gl_Position = projectionMatrix * mvPosition;
       
-      // Size attenuation
-      gl_PointSize = (15.0 / -mvPosition.z);
+      // Size attenuation: smaller points for a sharper, more distinguishable shape
+      gl_PointSize = (10.0 / -mvPosition.z);
       
       vAlpha = 1.0;
     }
@@ -85,7 +85,8 @@ const PointCloudMaterial = {
       // Soft edge formula for luminescence
       float alpha = pow(1.0 - (dist * 2.0), 1.5) * vAlpha;
       
-      gl_FragColor = vec4(uColor, alpha * 0.5);
+      // Slightly higher alpha for visibility
+      gl_FragColor = vec4(uColor, alpha * 0.7);
     }
   `
 }
@@ -122,18 +123,18 @@ function PointCloudShape() {
         if (!mesh.geometry || !mesh.geometry.attributes || !mesh.geometry.attributes.position) {
           return // Skip meshes without geometry
         }
-        
+
         const positions = mesh.geometry.attributes.position.array
-        
+
         mesh.updateMatrixWorld()
         const matrix = mesh.matrixWorld
-        
+
         const vec = new THREE.Vector3()
-        // Stride by 15 (5 vertices * 3 coordinates) to reduce the number of points for heavy models (17MB+)
-        // This prevents the browser from crashing or lagging heavily.
-        for (let i = 0; i < positions.length; i += 15) {
+        // Stride by 6 (every 2nd vertex) to massively increase density and shape accuracy
+        // Since we fixed the geometry crash, a higher density should run smoothly.
+        for (let i = 0; i < positions.length; i += 6) {
           // Target position (Car)
-          vec.set(positions[i], positions[i+1], positions[i+2])
+          vec.set(positions[i], positions[i + 1], positions[i + 2])
           vec.applyMatrix4(matrix)
           targetPoints.push(vec.x, vec.y, vec.z)
 
@@ -197,8 +198,8 @@ function PointCloudShape() {
   }, [])
 
   return (
-    // Reduced scale even further to 0.7
-    <group ref={groupRef} scale={[0.7, 0.7, 0.7]} position={[0, -0.5, 0]} rotation={[0.2, -0.5, 0]}>
+    // Pushed the car further back into the background (Z = -3) and slightly increased scale to maintain apparent size
+    <group ref={groupRef} scale={[0.9, 0.9, 0.9]} position={[0, -0.5, -3]} rotation={[0.2, -0.5, 0]}>
       <points geometry={mergedGeometry}>
         <shaderMaterial
           ref={materialRef}
