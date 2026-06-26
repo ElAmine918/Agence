@@ -23,7 +23,7 @@ export default function Contact() {
   };
 
   return (
-    <SectionWrapper id="contact" className="relative py-24 md:py-40 border-t border-[var(--line)]">
+    <SectionWrapper id="contact" className="relative py-24 md:py-40">
       {/* Background glow */}
       <div className="absolute inset-0 wave-pattern opacity-[0.03] pointer-events-none" />
       <div className="center-glow opacity-30" />
