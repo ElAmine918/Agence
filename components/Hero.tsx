@@ -7,13 +7,11 @@ import Link from "next/link";
 import BlurReveal from "@/components/animations/BlurReveal";
 import MagneticButton from "@/components/animations/MagneticButton";
 import InteractiveGrid from "@/components/InteractiveGrid";
-import CarPointCloud from "@/components/CarPointCloud";
 
 export default function Hero() {
   return (
     <section className="relative w-full min-h-[100svh] flex flex-col pt-32 pb-24 md:pt-48 overflow-hidden">
       
-      <CarPointCloud />
       <InteractiveGrid />
 
       <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 sm:px-10 flex flex-col h-full justify-between flex-grow">

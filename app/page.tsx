@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import BottomBlur from "@/components/BottomBlur";
+import CarPointCloud from "@/components/CarPointCloud";
 
 // Lazy-load below-fold sections to reduce initial bundle size
 const Features = dynamic(() => import("@/components/Features"));
@@ -16,6 +17,7 @@ export default function Home() {
     <>
       <Navbar />
       <main>
+        <CarPointCloud />
         <Hero />
         <Features />
         <Team />

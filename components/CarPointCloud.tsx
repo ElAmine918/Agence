@@ -219,7 +219,7 @@ export default function CarPointCloud() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2 }}
-      className="fixed inset-0 z-0 pointer-events-none"
+      className="fixed inset-0 -z-10 pointer-events-none"
     >
       <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={[1, 1.5]}>
         <PointCloudShape />
