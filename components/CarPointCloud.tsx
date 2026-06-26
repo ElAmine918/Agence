@@ -4,7 +4,7 @@
 
 import * as THREE from 'three'
 import { useRef, useMemo, useEffect, useState } from 'react'
-import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { motion } from 'framer-motion'
 
 const PointCloudMaterial = {
@@ -100,7 +100,6 @@ const PointCloudMaterial = {
 function PointCloudShape() {
   const materialRef = useRef<THREE.ShaderMaterial>(null)
   const groupRef = useRef<THREE.Group>(null)
-  const { camera } = useThree()
 
   const morphProgress = useRef(1.0)
   
