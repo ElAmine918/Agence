@@ -67,7 +67,7 @@ export default function Navbar() {
             <MagneticButton strength={15}>
               <Link
                 href="#contact"
-                className="hidden md:flex items-center gap-2 bg-white text-black px-5 py-2 rounded-full text-sm font-semibold hover:bg-zinc-200 transition-colors group"
+                className="hidden md:flex items-center gap-2 bg-gradient-to-r from-[#f5d0e6] via-[#d0c6ff] to-[#bce6ff] text-black px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity group shadow-[0_0_20px_rgba(208,198,255,0.3)]"
               >
                 Contact
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

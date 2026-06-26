@@ -78,7 +78,7 @@ export default function Pricing() {
             >
               {plan.popular && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="bg-white text-black text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-[var(--line)]">
+                  <div className="bg-gradient-to-r from-[#f5d0e6] via-[#d0c6ff] to-[#bce6ff] text-black text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border-none shadow-[0_0_15px_rgba(208,198,255,0.4)]">
                     Recommandé
                   </div>
                 </div>

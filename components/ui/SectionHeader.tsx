@@ -48,7 +48,7 @@ export default function SectionHeader({
               {titleItalic}
             </span>
           )}{" "}
-          {titleEnd && <span className="gradient-text-agency">{titleEnd}</span>}
+          {titleEnd && <span className="bg-gradient-to-r from-[#f5d0e6] via-[#d0c6ff] to-[#bce6ff] text-transparent bg-clip-text">{titleEnd}</span>}
         </motion.h2>
 
         <motion.p

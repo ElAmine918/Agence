@@ -3,16 +3,15 @@
 import * as THREE from 'three'
 import { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useGLTF } from '@react-three/drei'
 import { motion } from 'framer-motion'
 
 const PointCloudMaterial = {
   uniforms: {
     uMouse: { value: new THREE.Vector3(0, 0, 0) },
     uTime: { value: 0 },
-    uRadius: { value: 2.5 },
-    uStrength: { value: 1.5 },
-    uMorphProgress: { value: 0.0 }, // 0.0 = stars, 1.0 = car
+    uRadius: { value: 3.5 },
+    uStrength: { value: 2.0 },
+    uScrollMorph: { value: 1.0 }, // 1.0 = Sphere, 0.0 = Stars
     uColor: { value: new THREE.Color("#ffffff") }
   },
   vertexShader: `
@@ -20,10 +19,14 @@ const PointCloudMaterial = {
     uniform float uTime;
     uniform float uRadius;
     uniform float uStrength;
-    uniform float uMorphProgress;
+    uniform float uScrollMorph;
     
     attribute vec3 aTargetPos;
+    attribute float aIsShootingStar;
+    attribute float aShootingStarOffset;
+    
     varying float vAlpha;
+    varying float vIsShootingStar;
     
     // Pseudo-random function for dispersion
     float hash(vec3 p) {
@@ -31,11 +34,25 @@ const PointCloudMaterial = {
     }
     
     void main() {
-      // Easing function for a smooth morph (Cubic Ease Out)
-      float ease = 1.0 - pow(1.0 - uMorphProgress, 3.0);
+      // Morph between random stars (position) and perfect sphere (aTargetPos)
+      // Easing to make the morph smoother
+      float easeMorph = uScrollMorph * uScrollMorph * (3.0 - 2.0 * uScrollMorph);
+      vec3 basePos = mix(position, aTargetPos, easeMorph);
       
-      // Interpolate between random star position and target car position
-      vec3 basePos = mix(position, aTargetPos, ease);
+      float starAlpha = 1.0;
+      vIsShootingStar = aIsShootingStar;
+      
+      // Shooting star logic: only active when we are mostly in Starry Night mode
+      if (aIsShootingStar > 0.5 && uScrollMorph < 0.2) {
+         // Fast animation loop
+         float t = fract(uTime * 0.3 + aShootingStarOffset); 
+         basePos.x += (t * 80.0) - 40.0; // Fly across
+         basePos.y -= (t * 40.0) - 20.0; // Fly downwards
+         basePos.z += (t * 20.0) - 10.0;
+         
+         // Fade in and out at the edges of its life
+         starAlpha = sin(t * 3.14159);
+      }
       
       // Calculate world position to compare with mouse
       vec4 worldPos = modelMatrix * vec4(basePos, 1.0);
@@ -47,35 +64,36 @@ const PointCloudMaterial = {
       if(dist < uRadius) {
         vec3 dir = normalize(worldPos.xyz - uMouse);
         
-        // Calculate random scatter directions based on the point's unique position
         float r1 = hash(basePos) - 0.5;
         float r2 = hash(basePos + vec3(1.0, 0.0, 0.0)) - 0.5;
         float r3 = hash(basePos + vec3(0.0, 1.0, 0.0)) - 0.5;
         vec3 scatter = vec3(r1, r2, r3) * 2.0;
         
-        // Blend the direct outward push with the random scatter for a "dust blowing" effect
         dir = normalize(dir + scatter);
         
         float force = (1.0 - (dist / uRadius)) * (uStrength * 1.5);
-        // Push the point outward
         worldPos.xyz += dir * force;
       }
       
-      // Subtle idle breathing animation
-      worldPos.y += sin(uTime * 2.0 + worldPos.x * 5.0) * 0.02;
+      // Subtle idle breathing animation only when in sphere mode
+      worldPos.y += sin(uTime * 2.0 + worldPos.x * 5.0) * 0.05 * uScrollMorph;
+      worldPos.x += cos(uTime * 1.5 + worldPos.y * 3.0) * 0.05 * uScrollMorph;
       
       vec4 mvPosition = viewMatrix * worldPos;
       gl_Position = projectionMatrix * mvPosition;
       
-      // Size attenuation: smaller points for a sharper, more distinguishable shape
-      gl_PointSize = (10.0 / -mvPosition.z);
+      // Size attenuation
+      // If it's a shooting star, make it slightly larger
+      float baseSize = aIsShootingStar > 0.5 && uScrollMorph < 0.2 ? 30.0 : 12.0;
+      gl_PointSize = (baseSize / -mvPosition.z);
       
-      vAlpha = 1.0;
+      vAlpha = starAlpha;
     }
   `,
   fragmentShader: `
     uniform vec3 uColor;
     varying float vAlpha;
+    varying float vIsShootingStar;
     
     void main() {
       // Create a soft glowing circle (Gaussian-like)
@@ -85,8 +103,10 @@ const PointCloudMaterial = {
       // Soft edge formula for luminescence
       float alpha = pow(1.0 - (dist * 2.0), 1.5) * vAlpha;
       
-      // Slightly higher alpha for visibility
-      gl_FragColor = vec4(uColor, alpha * 0.7);
+      // Shooting stars are brighter
+      float finalAlpha = vIsShootingStar > 0.5 ? alpha * 1.5 : alpha * 0.8;
+      
+      gl_FragColor = vec4(uColor, finalAlpha);
     }
   `
 }
@@ -98,7 +118,15 @@ function PointCloudShape() {
 
   const mouse = useRef(new THREE.Vector2(-100, -100))
   const mouse3D = useMemo(() => new THREE.Vector3(), [])
-  const morphProgress = useRef(0)
+  const morphProgress = useRef(1.0)
+  
+  // Track scroll for morphing
+  const [scrollY, setScrollY] = useState(0)
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY)
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -109,53 +137,47 @@ function PointCloudShape() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Load the newly provided Ferrari model
-  const { scene } = useGLTF('/ferrari2004.glb')
-
-  // Extract all vertices from all meshes
   const mergedGeometry = useMemo(() => {
     const randomPoints: number[] = []
     const targetPoints: number[] = []
+    const isShootingStar: number[] = []
+    const shootingStarOffset: number[] = []
+    
+    const count = 20000;
+    
+    for (let i = 0; i < count; i++) {
+      // 1. Target Position (Perfect Sphere using Fibonacci Lattice)
+      const phi = Math.acos(1 - 2 * (i + 0.5) / count)
+      const theta = Math.PI * (1 + Math.sqrt(5)) * i
+      const r = 3.5 // Sphere radius
+      
+      targetPoints.push(
+        r * Math.sin(phi) * Math.cos(theta),
+        r * Math.sin(phi) * Math.sin(theta),
+        r * Math.cos(phi)
+      )
 
-    scene.traverse((child) => {
-      if ((child as THREE.Mesh).isMesh) {
-        const mesh = child as THREE.Mesh
-        if (!mesh.geometry || !mesh.geometry.attributes || !mesh.geometry.attributes.position) {
-          return // Skip meshes without geometry
-        }
-
-        const positions = mesh.geometry.attributes.position.array
-
-        mesh.updateMatrixWorld()
-        const matrix = mesh.matrixWorld
-
-        const vec = new THREE.Vector3()
-        // Stride by 6 (every 2nd vertex) to massively increase density and shape accuracy
-        // Since we fixed the geometry crash, a higher density should run smoothly.
-        for (let i = 0; i < positions.length; i += 6) {
-          // Target position (Car)
-          vec.set(positions[i], positions[i + 1], positions[i + 2])
-          vec.applyMatrix4(matrix)
-          targetPoints.push(vec.x, vec.y, vec.z)
-
-          // Random initial position (Stars) - spherical distribution
-          const theta = Math.random() * Math.PI * 2
-          const phi = Math.acos(Math.random() * 2 - 1)
-          const r = Math.random() * 40 + 5 // Radius spread between 5 and 45
-          randomPoints.push(
-            r * Math.sin(phi) * Math.cos(theta),
-            r * Math.sin(phi) * Math.sin(theta),
-            r * Math.cos(phi)
-          )
-        }
-      }
-    })
+      // 2. Random Position (Starry Night across the entire background)
+      randomPoints.push(
+        (Math.random() - 0.5) * 60, // Wide X spread
+        (Math.random() - 0.5) * 60, // Wide Y spread
+        (Math.random() - 0.5) * 40 - 10 // Pushed back in Z so it feels like a deep night sky
+      )
+      
+      // 3. Shooting star attributes
+      // 0.5% chance to be a shooting star
+      const isShooting = Math.random() < 0.005 ? 1.0 : 0.0;
+      isShootingStar.push(isShooting);
+      shootingStarOffset.push(Math.random() * 100);
+    }
 
     const geo = new THREE.BufferGeometry()
     geo.setAttribute('position', new THREE.Float32BufferAttribute(randomPoints, 3))
     geo.setAttribute('aTargetPos', new THREE.Float32BufferAttribute(targetPoints, 3))
+    geo.setAttribute('aIsShootingStar', new THREE.Float32BufferAttribute(isShootingStar, 1))
+    geo.setAttribute('aShootingStarOffset', new THREE.Float32BufferAttribute(shootingStarOffset, 1))
     return geo
-  }, [scene])
+  }, [])
 
   useFrame((state, delta) => {
     if (!materialRef.current) return
@@ -171,35 +193,30 @@ function PointCloudShape() {
     materialRef.current.uniforms.uMouse.value.copy(mouse3D)
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime
 
-    // Animate morph progress from 0 to 1
-    if (state.clock.elapsedTime > 1.0 && morphProgress.current < 1.0) {
-      morphProgress.current = Math.min(1.0, morphProgress.current + delta * 0.25)
-      materialRef.current.uniforms.uMorphProgress.value = morphProgress.current
-    }
+    // Morph Logic: Top of page (scrollY=0) = Sphere (1.0). Scroll down = Stars (0.0).
+    // Morph completes within the first 600px of scroll
+    const targetMorph = Math.max(0, 1 - scrollY / 600)
+    // Lerp for smooth transition
+    morphProgress.current = THREE.MathUtils.lerp(morphProgress.current, targetMorph, 0.05)
+    materialRef.current.uniforms.uScrollMorph.value = morphProgress.current
 
-    // 2. Slow rotation of the shape (levitation)
+    // 2. Slow rotation of the shape
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.15
-      // Slight vertical floating
-      groupRef.current.position.y += Math.sin(state.clock.elapsedTime) * 0.002
+      groupRef.current.rotation.y += delta * 0.1
+      groupRef.current.rotation.x += delta * 0.05
+      
+      // Gentle Parallax: move the whole group up slightly as we scroll down
+      groupRef.current.position.y = THREE.MathUtils.lerp(
+        groupRef.current.position.y,
+        -(scrollY * 0.015),
+        0.1
+      )
     }
   })
 
-  // 3. Scroll Parallax Effect
-  useEffect(() => {
-    const handleScroll = () => {
-      if (groupRef.current) {
-        // Move down as we scroll down
-        groupRef.current.position.y = -(window.scrollY * 0.015)
-      }
-    }
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
   return (
-    // Pushed the car further back into the background (Z = -3) and slightly increased scale to maintain apparent size
-    <group ref={groupRef} scale={[0.9, 0.9, 0.9]} position={[0, -0.5, -3]} rotation={[0.2, -0.5, 0]}>
+    // Placed in the background
+    <group ref={groupRef} position={[0, 0, -4]}>
       <points geometry={mergedGeometry}>
         <shaderMaterial
           ref={materialRef}
@@ -216,8 +233,6 @@ function PointCloudShape() {
   )
 }
 
-useGLTF.preload('/ferrari2004.glb')
-
 export default function CarPointCloud() {
   const [mounted, setMounted] = useState(false)
 
@@ -232,7 +247,6 @@ export default function CarPointCloud() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2 }}
-      // 'fixed' makes it scroll with the page, staying in background
       className="fixed inset-0 z-0 pointer-events-none"
     >
       <Canvas camera={{ position: [0, 0, 8], fov: 50 }}>

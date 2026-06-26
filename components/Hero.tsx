@@ -52,8 +52,8 @@ export default function Hero() {
             <BlurReveal delay={0.1}>
               <h1 className="text-[80px] sm:text-[100px] lg:text-[140px] font-sans font-normal text-white tracking-tighter-xl leading-[0.92] max-w-4xl m-0 p-0">
                 Digital, <br />
-                <span className="font-serif italic font-light text-[var(--muted)] tracking-tighter-lg">Élégant</span> <br />
-                <span className="gradient-text-agency">& Automatisé</span>
+                <span className="font-serif italic font-light bg-gradient-to-r from-[#f5d0e6] via-[#d0c6ff] to-[#bce6ff] text-transparent bg-clip-text tracking-tighter-lg">Élégant</span> <br />
+                <span className="text-[var(--muted)]">& Automatisé</span>
               </h1>
             </BlurReveal>
 
@@ -86,7 +86,7 @@ export default function Hero() {
           <BlurReveal delay={0.4}>
             <MagneticButton strength={20}>
               <Link href="#contact" className="group">
-                <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-zinc-200 border-none">
+                <Button size="lg" className="rounded-full px-8 bg-gradient-to-r from-[#f5d0e6] via-[#d0c6ff] to-[#bce6ff] text-black hover:opacity-90 border-none shadow-[0_0_40px_rgba(208,198,255,0.4)]">
                   <span className="relative z-10 flex items-center gap-2 text-sm">
                     Démarrer un projet
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
