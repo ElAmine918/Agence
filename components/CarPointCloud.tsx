@@ -10,7 +10,8 @@ const PointCloudMaterial = {
     uTime: { value: 0 },
     uRadius: { value: 3.5 },
     uStrength: { value: 2.0 },
-    uScrollMorph: { value: 1.0 }, // 1.0 = Sphere, 0.0 = Stars
+    uScrollMorph: { value: 1.0 }, // 1.0 = Cube, 0.0 = Stars
+    uScrollY: { value: 0.0 }, // For independent parallax
     uColor: { value: new THREE.Color("#ffffff") }
   },
   vertexShader: `
@@ -18,6 +19,7 @@ const PointCloudMaterial = {
     uniform float uRadius;
     uniform float uStrength;
     uniform float uScrollMorph;
+    uniform float uScrollY;
     
     attribute vec3 aTargetPos;
     attribute float aIsShootingStar;
@@ -26,16 +28,19 @@ const PointCloudMaterial = {
     varying float vAlpha;
     varying float vIsShootingStar;
     
-    // Pseudo-random function for dispersion
-    float hash(vec3 p) {
-      return fract(sin(dot(p, vec3(12.9898, 78.233, 45.164))) * 43758.5453);
-    }
-    
     void main() {
-      // Morph between random stars (position) and perfect sphere (aTargetPos)
       // Easing to make the morph smoother
       float easeMorph = uScrollMorph * uScrollMorph * (3.0 - 2.0 * uScrollMorph);
-      vec3 basePos = mix(position, aTargetPos, easeMorph);
+      
+      // Cube moves up quickly like it's scrolling with the page
+      vec3 cubePos = aTargetPos;
+      cubePos.y += uScrollY * 0.015;
+      
+      // Stars move up slowly (parallax) and wrap infinitely between -30 and +30
+      vec3 starPos = position;
+      starPos.y = mod(starPos.y + uScrollY * 0.002 + 30.0, 60.0) - 30.0;
+      
+      vec3 basePos = mix(starPos, cubePos, easeMorph);
       
       float starAlpha = 1.0;
       vIsShootingStar = aIsShootingStar;
@@ -48,14 +53,13 @@ const PointCloudMaterial = {
          basePos.y -= (t * 40.0) - 20.0; // Fly downwards
          basePos.z += (t * 20.0) - 10.0;
          
-         // Fade in and out at the edges of its life
          starAlpha = sin(t * 3.14159);
       }
       
       // Calculate world position
       vec4 worldPos = modelMatrix * vec4(basePos, 1.0);
       
-      // Subtle idle breathing animation only when in sphere mode
+      // Subtle idle breathing animation only when in cube mode
       worldPos.y += sin(uTime * 2.0 + worldPos.x * 5.0) * 0.05 * uScrollMorph;
       worldPos.x += cos(uTime * 1.5 + worldPos.y * 3.0) * 0.05 * uScrollMorph;
       
@@ -164,8 +168,9 @@ function PointCloudShape() {
 
     // Update shader uniforms
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime
+    materialRef.current.uniforms.uScrollY.value = scrollY
 
-    // Morph Logic: Top of page (scrollY=0) = Sphere (1.0). Scroll down = Stars (0.0).
+    // Morph Logic: Top of page (scrollY=0) = Cube (1.0). Scroll down = Stars (0.0).
     // Morph completes within the first 600px of scroll
     const targetMorph = Math.max(0, 1 - scrollY / 600)
     // Lerp for smooth transition
@@ -176,13 +181,6 @@ function PointCloudShape() {
     if (groupRef.current) {
       groupRef.current.rotation.y += delta * 0.1
       groupRef.current.rotation.x += delta * 0.05
-      
-      // Gentle Parallax: move the whole group up slightly as we scroll down
-      groupRef.current.position.y = THREE.MathUtils.lerp(
-        groupRef.current.position.y,
-        -(scrollY * 0.015),
-        0.1
-      )
     }
   })
 
