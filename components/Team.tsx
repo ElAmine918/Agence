@@ -16,7 +16,7 @@ const team = [
 
 export default function Team() {
   return (
-    <SectionWrapper id="team" className="relative bg-[var(--background)] py-24 md:py-40 mb-20">
+    <SectionWrapper id="team" className="relative py-24 md:py-40 mb-20">
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
         <BlurReveal>
           <SectionHeader

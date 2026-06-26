@@ -38,7 +38,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative w-full border-t border-[var(--line)] pt-20 pb-10">
+    <footer className="relative w-full bg-[var(--background)] border-t border-[var(--line)] pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6 md:px-0">
         
         {/* Top: Massive Logo & Back to top */}
