@@ -78,7 +78,7 @@ export default function Hero() {
           
           <BlurReveal delay={0.3} className="max-w-md">
             <p className="text-lg text-[var(--muted)] font-medium leading-relaxed">
-              Nous construisons des fondations digitales robustes pour propulser votre entreprise dans l'ère de l'intelligence artificielle.
+              Nous construisons des fondations digitales robustes pour propulser votre entreprise dans l&apos;ère de l&apos;intelligence artificielle.
             </p>
           </BlurReveal>
 
