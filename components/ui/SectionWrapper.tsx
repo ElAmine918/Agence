@@ -22,7 +22,7 @@ export default function SectionWrapper({
         "relative w-full",
         dark
           ? "bg-[var(--deep-navy)] text-white"
-          : "bg-[var(--background)] text-[var(--foreground)]",
+          : "text-[var(--foreground)]",
         !noPadding && "section-padding",
         className
       )}
