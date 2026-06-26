@@ -10,7 +10,7 @@ const PointCloudMaterial = {
   uniforms: {
     uMouse: { value: new THREE.Vector3(0, 0, 0) },
     uTime: { value: 0 },
-    uRadius: { value: 2.5 }, 
+    uRadius: { value: 2.5 },
     uStrength: { value: 1.5 },
     uMorphProgress: { value: 0.0 }, // 0.0 = stars, 1.0 = car
     uColor: { value: new THREE.Color("#ffffff") }
@@ -25,6 +25,11 @@ const PointCloudMaterial = {
     attribute vec3 aTargetPos;
     varying float vAlpha;
     
+    // Pseudo-random function for dispersion
+    float hash(vec3 p) {
+      return fract(sin(dot(p, vec3(12.9898, 78.233, 45.164))) * 43758.5453);
+    }
+    
     void main() {
       // Easing function for a smooth morph (Cubic Ease Out)
       float ease = 1.0 - pow(1.0 - uMorphProgress, 3.0);
@@ -38,10 +43,20 @@ const PointCloudMaterial = {
       // Distance to mouse in world space
       float dist = distance(worldPos.xyz, uMouse);
       
-      // Repulsion force (Void effect)
+      // Repulsion force (Void effect + Dispersion)
       if(dist < uRadius) {
         vec3 dir = normalize(worldPos.xyz - uMouse);
-        float force = (1.0 - (dist / uRadius)) * uStrength;
+        
+        // Calculate random scatter directions based on the point's unique position
+        float r1 = hash(basePos) - 0.5;
+        float r2 = hash(basePos + vec3(1.0, 0.0, 0.0)) - 0.5;
+        float r3 = hash(basePos + vec3(0.0, 1.0, 0.0)) - 0.5;
+        vec3 scatter = vec3(r1, r2, r3) * 2.0;
+        
+        // Blend the direct outward push with the random scatter for a "dust blowing" effect
+        dir = normalize(dir + scatter);
+        
+        float force = (1.0 - (dist / uRadius)) * (uStrength * 1.5);
         // Push the point outward
         worldPos.xyz += dir * force;
       }
@@ -79,7 +94,7 @@ function PointCloudShape() {
   const materialRef = useRef<THREE.ShaderMaterial>(null)
   const groupRef = useRef<THREE.Group>(null)
   const { camera } = useThree()
-  
+
   const mouse = useRef(new THREE.Vector2(-100, -100))
   const mouse3D = useMemo(() => new THREE.Vector3(), [])
   const morphProgress = useRef(0)
@@ -95,27 +110,33 @@ function PointCloudShape() {
 
   // Load the newly provided Ferrari model
   const { scene } = useGLTF('/ferrari2004.glb')
-  
+
   // Extract all vertices from all meshes
   const mergedGeometry = useMemo(() => {
     const randomPoints: number[] = []
     const targetPoints: number[] = []
-    
+
     scene.traverse((child) => {
       if ((child as THREE.Mesh).isMesh) {
         const mesh = child as THREE.Mesh
+        if (!mesh.geometry || !mesh.geometry.attributes || !mesh.geometry.attributes.position) {
+          return // Skip meshes without geometry
+        }
+        
         const positions = mesh.geometry.attributes.position.array
         
         mesh.updateMatrixWorld()
         const matrix = mesh.matrixWorld
         
         const vec = new THREE.Vector3()
-        for (let i = 0; i < positions.length; i += 6) {
+        // Stride by 15 (5 vertices * 3 coordinates) to reduce the number of points for heavy models (17MB+)
+        // This prevents the browser from crashing or lagging heavily.
+        for (let i = 0; i < positions.length; i += 15) {
           // Target position (Car)
           vec.set(positions[i], positions[i+1], positions[i+2])
           vec.applyMatrix4(matrix)
           targetPoints.push(vec.x, vec.y, vec.z)
-          
+
           // Random initial position (Stars) - spherical distribution
           const theta = Math.random() * Math.PI * 2
           const phi = Math.acos(Math.random() * 2 - 1)
@@ -128,7 +149,7 @@ function PointCloudShape() {
         }
       }
     })
-    
+
     const geo = new THREE.BufferGeometry()
     geo.setAttribute('position', new THREE.Float32BufferAttribute(randomPoints, 3))
     geo.setAttribute('aTargetPos', new THREE.Float32BufferAttribute(targetPoints, 3))
@@ -144,17 +165,17 @@ function PointCloudShape() {
     mouse3D.sub(camera.position).normalize()
     const distanceToZero = -camera.position.z / mouse3D.z
     mouse3D.copy(camera.position).add(mouse3D.multiplyScalar(distanceToZero))
-    
+
     // Update shader uniforms
     materialRef.current.uniforms.uMouse.value.copy(mouse3D)
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime
-    
+
     // Animate morph progress from 0 to 1
     if (state.clock.elapsedTime > 1.0 && morphProgress.current < 1.0) {
       morphProgress.current = Math.min(1.0, morphProgress.current + delta * 0.25)
       materialRef.current.uniforms.uMorphProgress.value = morphProgress.current
     }
-    
+
     // 2. Slow rotation of the shape (levitation)
     if (groupRef.current) {
       groupRef.current.rotation.y += delta * 0.15
@@ -176,8 +197,8 @@ function PointCloudShape() {
   }, [])
 
   return (
-    // Increased scale from [0.8] to [2, 2, 2] to make the car much bigger
-    <group ref={groupRef} scale={[2.0, 2.0, 2.0]} position={[0, -0.5, 0]} rotation={[0.2, -0.5, 0]}>
+    // Reduced scale even further to 0.7
+    <group ref={groupRef} scale={[0.7, 0.7, 0.7]} position={[0, -0.5, 0]} rotation={[0.2, -0.5, 0]}>
       <points geometry={mergedGeometry}>
         <shaderMaterial
           ref={materialRef}
@@ -198,15 +219,15 @@ useGLTF.preload('/ferrari2004.glb')
 
 export default function CarPointCloud() {
   const [mounted, setMounted] = useState(false)
-  
+
   useEffect(() => {
     setMounted(true)
   }, [])
-  
+
   if (!mounted) return null
-  
+
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 2 }}
