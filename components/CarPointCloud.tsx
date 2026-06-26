@@ -70,7 +70,7 @@ const PointCloudMaterial = {
       
       // Size attenuation
       // If it's a shooting star, make it slightly larger
-      float baseSize = aIsShootingStar > 0.5 && uScrollMorph < 0.2 ? 35.0 : 16.0;
+      float baseSize = aIsShootingStar > 0.5 && uScrollMorph < 0.2 ? 45.0 : 24.0;
       gl_PointSize = (baseSize / -mvPosition.z);
       
       vAlpha = starAlpha;
@@ -103,33 +103,25 @@ function PointCloudShape() {
 
   const morphProgress = useRef(1.0)
   
-  // Track scroll for morphing
-  const [scrollY, setScrollY] = useState(0)
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   const mergedGeometry = useMemo(() => {
     const randomPoints: number[] = []
     const targetPoints: number[] = []
     const isShootingStar: number[] = []
     const shootingStarOffset: number[] = []
     
-    const count = 8664; // 6 faces * 38 * 38
+    const count = 4056; // 6 faces * 26 * 26 (Optimized from 8664)
     
     for (let i = 0; i < count; i++) {
       // 1. Target Position (Perfect Uniform Grid Cube)
-      const pointsPerFace = 1444; // 38 * 38
+      const pointsPerFace = 676; // 26 * 26
       const face = Math.floor(i / pointsPerFace) % 6;
       const indexOnFace = i % pointsPerFace;
-      const row = Math.floor(indexOnFace / 38);
-      const col = indexOnFace % 38;
+      const row = Math.floor(indexOnFace / 26);
+      const col = indexOnFace % 26;
       
       // Map to -2.5 to 2.5
-      const u = (row / 37) * 5.0 - 2.5;
-      const v = (col / 37) * 5.0 - 2.5;
+      const u = (row / 25) * 5.0 - 2.5;
+      const v = (col / 25) * 5.0 - 2.5;
       const d = 2.5; // Half-size
 
       let cx = 0, cy = 0, cz = 0
@@ -167,13 +159,14 @@ function PointCloudShape() {
   useFrame((state, delta) => {
     if (!materialRef.current) return
 
+    const currentScroll = window.scrollY
+
     // Update shader uniforms
     materialRef.current.uniforms.uTime.value = state.clock.elapsedTime
-    materialRef.current.uniforms.uScrollY.value = scrollY
+    materialRef.current.uniforms.uScrollY.value = currentScroll
 
     // Morph Logic: Top of page (scrollY=0) = Cube (1.0). Scroll down = Stars (0.0).
-    // Morph completes within the first 600px of scroll
-    const targetMorph = Math.max(0, 1 - scrollY / 600)
+    const targetMorph = Math.max(0, 1 - currentScroll / 600)
     // Lerp for smooth transition
     morphProgress.current = THREE.MathUtils.lerp(morphProgress.current, targetMorph, 0.05)
     materialRef.current.uniforms.uScrollMorph.value = morphProgress.current
@@ -220,7 +213,11 @@ export default function CarPointCloud() {
       transition={{ duration: 2 }}
       className="fixed inset-0 z-0 pointer-events-none"
     >
-      <Canvas camera={{ position: [0, 0, 8], fov: 50 }} dpr={[1, 1.5]}>
+      <Canvas 
+        camera={{ position: [0, 0, 8], fov: 50 }} 
+        dpr={[1, 1.5]}
+        gl={{ antialias: false, powerPreference: "high-performance", alpha: true }}
+      >
         <PointCloudShape />
       </Canvas>
     </motion.div>
