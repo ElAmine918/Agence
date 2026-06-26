@@ -24,7 +24,7 @@ export default function ScaleDownParallax({
     <motion.div
       ref={ref}
       style={{ scale, opacity }}
-      className={`overflow-hidden ${className}`}
+      className={className}
     >
       {children}
     </motion.div>
