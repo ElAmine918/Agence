@@ -58,10 +58,11 @@ export default function InteractiveGrid() {
           maskImage: maskImage,
         }}
       >
-        <div className="absolute top-0 bottom-0 left-[10%] w-[1px] bg-white/15 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
-        <div className="absolute top-0 bottom-0 right-[10%] w-[1px] bg-white/15 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
-        <div className="absolute top-[30%] left-0 right-0 h-[1px] bg-white/15 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
-        <div className="absolute bottom-[20%] left-0 right-0 h-[1px] bg-white/15 shadow-[0_0_8px_rgba(255,255,255,0.5)]" />
+        {/* Active Lines (animated over the base grid) */}
+        <div className="absolute top-0 bottom-0 left-[10%] w-[1px] bg-[#D8B4FE]/30 shadow-[0_0_12px_rgba(216,180,254,0.4)]" />
+        <div className="absolute top-0 bottom-0 right-[10%] w-[1px] bg-[#D8B4FE]/30 shadow-[0_0_12px_rgba(216,180,254,0.4)]" />
+        <div className="absolute top-[30%] left-0 right-0 h-[1px] bg-[#D8B4FE]/30 shadow-[0_0_12px_rgba(216,180,254,0.4)]" />
+        <div className="absolute bottom-[20%] left-0 right-0 h-[1px] bg-[#D8B4FE]/30 shadow-[0_0_12px_rgba(216,180,254,0.4)]" />
       </motion.div>
     </div>
   );

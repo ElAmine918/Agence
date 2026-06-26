@@ -52,7 +52,7 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <SectionWrapper id="pricing" className="relative bg-[var(--background)] py-24 md:py-32">
+    <SectionWrapper id="pricing" className="relative py-24 md:py-32">
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
         <SectionHeader
           icon={CreditCard}
@@ -71,14 +71,14 @@ export default function Pricing() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className={`relative flex flex-col p-8 sm:p-10 rounded-[32px] border ${
-                plan.popular
-                  ? "bg-[#1b1b1b] border-[#333333] shadow-2xl shadow-black/50 md:-mt-8 md:mb-8"
+                  plan.popular
+                  ? "bg-[#1b1b1b] border-[#D8B4FE]/30 shadow-[0_20px_60px_rgba(216,180,254,0.05)] md:-mt-8 md:mb-8"
                   : "bg-[#0c0c0c] border-[var(--line)]"
               }`}
             >
               {plan.popular && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div className="bg-gradient-to-r from-[#f5d0e6] via-[#d0c6ff] to-[#bce6ff] text-black text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border-none shadow-[0_0_15px_rgba(208,198,255,0.4)]">
+                  <div className="bg-gradient-to-r from-[#D8B4FE] via-[#E9D5FF] to-[#FBCFE8] text-black text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border-none shadow-[0_0_15px_rgba(216,180,254,0.4)]">
                     Recommandé
                   </div>
                 </div>

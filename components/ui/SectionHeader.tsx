@@ -44,7 +44,7 @@ export default function SectionHeader({
         >
           {titleNormal}{" "}
           {titleItalic && (
-            <span className="font-serif italic text-[var(--muted)] tracking-tight font-light">
+            <span className="font-serif italic bg-gradient-to-r from-[#D8B4FE] via-[#E9D5FF] to-[#FBCFE8] text-transparent bg-clip-text tracking-tight font-light">
               {titleItalic}
             </span>
           )}{" "}

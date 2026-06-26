@@ -38,14 +38,16 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative w-full bg-[var(--background)] border-t border-[var(--line)] pt-20 pb-10">
+    <footer className="relative w-full border-t border-[var(--line)] pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-6 md:px-0">
         
         {/* Top: Massive Logo & Back to top */}
         <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-12 mb-24">
           <div className="flex flex-col items-start gap-6">
-            <Link href="/" className="text-4xl sm:text-5xl md:text-7xl font-sans font-medium text-white tracking-tighter-md leading-none hover:opacity-80 transition-opacity">
-              Studio M <span className="font-serif italic font-light text-[var(--muted)]">©</span>
+            <Link href="/" className="block">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-sans font-medium text-white tracking-tighter-md leading-none hover:opacity-80 transition-opacity">
+                Studio M <span className="font-serif italic font-light bg-gradient-to-r from-[#D8B4FE] via-[#E9D5FF] to-[#FBCFE8] text-transparent bg-clip-text">©</span>
+              </h2>
             </Link>
             <p className="text-base text-[var(--muted)] font-medium max-w-sm">
               Nous transformons des idées visionnaires en présences digitales hautement performantes.

@@ -33,7 +33,7 @@ export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <SectionWrapper id="faq" className="relative bg-[var(--background)] py-24 md:py-32">
+    <SectionWrapper id="faq" className="relative py-24 md:py-32">
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-0">
         <SectionHeader
           icon={HelpCircle}

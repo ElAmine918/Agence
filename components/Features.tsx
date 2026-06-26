@@ -50,7 +50,7 @@ const cardVariants = {
 
 export default function Features() {
   return (
-    <SectionWrapper id="services" className="relative overflow-hidden bg-[var(--background)] py-24 md:py-32">
+    <SectionWrapper id="services" className="relative overflow-hidden py-24 md:py-32">
       {/* Background Texture */}
       <div className="absolute inset-0 wave-pattern opacity-[0.02] z-0 pointer-events-none" />
 
@@ -79,7 +79,7 @@ export default function Features() {
               <motion.div
                 key={feature.title}
                 variants={cardVariants}
-                className="group p-8 sm:p-12 rounded-[32px] border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] transition-all duration-500 relative flex flex-col h-full overflow-hidden"
+                className="group p-8 sm:p-12 rounded-[32px] border border-[var(--line)] bg-[var(--surface)] hover:bg-[var(--surface2)] hover:shadow-[0_20px_40px_rgba(216,180,254,0.05)] transition-all duration-500 relative flex flex-col h-full overflow-hidden"
               >
                 {/* Top Accent Icon */}
                 <div className="mb-10 w-14 h-14 rounded-full border border-[var(--line)] bg-[var(--ink)] flex items-center justify-center group-hover:scale-110 transition-transform duration-500">

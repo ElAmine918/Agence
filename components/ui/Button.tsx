@@ -11,9 +11,9 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants = {
-  // Primary is the massive white pill
+  // Primary is the premium pastel gradient with glow
   primary:
-    "bg-[#ffffff] text-[#000000] hover:bg-[#cecece] border border-transparent shadow-lg shadow-white/5",
+    "bg-gradient-to-r from-[#D8B4FE] via-[#E9D5FF] to-[#FBCFE8] text-[#000000] hover:opacity-90 border border-transparent shadow-[0_0_24px_rgba(216,180,254,0.3)]",
   // Secondary is the dark surface pill
   secondary:
     "bg-[var(--surface)] text-[var(--foreground)] hover:bg-[var(--surface2)] border border-[var(--line)]",
@@ -22,7 +22,7 @@ const variants = {
     "bg-transparent text-[var(--muted)] hover:text-[var(--foreground)]",
   // Popular is the same as primary for now
   popular:
-    "bg-[#ffffff] text-[#000000] hover:bg-[#cecece] border border-transparent",
+    "bg-gradient-to-r from-[#D8B4FE] via-[#E9D5FF] to-[#FBCFE8] text-[#000000] hover:opacity-90 border border-transparent shadow-[0_0_24px_rgba(216,180,254,0.3)]",
 };
 
 const sizes = {

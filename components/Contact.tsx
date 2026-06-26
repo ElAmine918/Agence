@@ -23,7 +23,7 @@ export default function Contact() {
   };
 
   return (
-    <SectionWrapper id="contact" className="relative bg-[var(--background)] py-24 md:py-40 border-t border-[var(--line)]">
+    <SectionWrapper id="contact" className="relative py-24 md:py-40 border-t border-[var(--line)]">
       {/* Background glow */}
       <div className="absolute inset-0 wave-pattern opacity-[0.03] pointer-events-none" />
       <div className="center-glow opacity-30" />
@@ -48,7 +48,7 @@ export default function Contact() {
                   type="text" 
                   required
                   placeholder="Ex: Le Petit Bistro"
-                  className="w-full bg-transparent border-b border-[var(--line)] px-4 py-3 text-white placeholder:text-[var(--faint)] focus:outline-none focus:border-white transition-colors"
+                  className="w-full bg-transparent border-b border-[var(--line)] px-4 py-3 text-white placeholder:text-[var(--faint)] focus:outline-none focus:border-[#D8B4FE]/60 transition-colors"
                 />
               </div>
               <div className="flex flex-col gap-3">
@@ -57,7 +57,7 @@ export default function Contact() {
                   type="email" 
                   required
                   placeholder="allo@bistro.ca"
-                  className="w-full bg-transparent border-b border-[var(--line)] px-4 py-3 text-white placeholder:text-[var(--faint)] focus:outline-none focus:border-white transition-colors"
+                  className="w-full bg-transparent border-b border-[var(--line)] px-4 py-3 text-white placeholder:text-[var(--faint)] focus:outline-none focus:border-[#D8B4FE]/60 transition-colors"
                 />
               </div>
             </div>
@@ -68,7 +68,7 @@ export default function Contact() {
                 required
                 placeholder="Parlez-nous de votre projet : refonte de site web, besoin d'un agent IA pour vos réservations, SEO..."
                 rows={4}
-                className="w-full bg-transparent border-b border-[var(--line)] px-4 py-3 text-white placeholder:text-[var(--faint)] focus:outline-none focus:border-white transition-colors resize-none"
+                className="w-full bg-transparent border-b border-[var(--line)] px-4 py-3 text-white placeholder:text-[var(--faint)] focus:outline-none focus:border-[#D8B4FE]/60 transition-colors resize-none"
               />
             </div>
 

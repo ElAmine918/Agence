@@ -38,7 +38,7 @@ export default function Team() {
               <BlurReveal delay={0.2}>
                 <h3 className="text-3xl sm:text-4xl font-sans text-white tracking-tighter-md mb-6">
                   Des solutions locales, <br />
-                  <span className="font-serif italic font-light text-[var(--muted)]">un impact massif.</span>
+                  <span className="font-serif italic font-light bg-gradient-to-r from-[#D8B4FE] via-[#E9D5FF] to-[#FBCFE8] text-transparent bg-clip-text">un impact massif.</span>
                 </h3>
               </BlurReveal>
               

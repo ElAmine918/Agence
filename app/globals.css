@@ -16,12 +16,12 @@
   --surface2: #262626;
   --elevated: #333333;
   
-  --line: rgba(255, 255, 255, 0.10);
-  --line-hover: rgba(255, 255, 255, 0.20);
+  --line: rgba(216, 180, 254, 0.15);
+  --line-hover: rgba(216, 180, 254, 0.30);
   
   --card-bg: #1b1b1b;
-  --card-border: rgba(255, 255, 255, 0.10);
-  --divider: rgba(255, 255, 255, 0.10);
+  --card-border: rgba(216, 180, 254, 0.15);
+  --divider: rgba(216, 180, 254, 0.15);
 }
 
 @theme inline {
@@ -121,7 +121,8 @@ body {
   position: absolute;
   font-family: monospace;
   font-size: 14px;
-  color: var(--faint);
+  color: #D8B4FE;
+  opacity: 0.6;
   line-height: 1;
   pointer-events: none;
   user-select: none;
